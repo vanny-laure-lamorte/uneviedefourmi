@@ -2,10 +2,10 @@
 build/*
 
 # # CMake files
-# CMakeFiles/
-# CMakeCache.txt
-# cmake_install.cmake
-# Makefile
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
 
 # # Visual Studio Code
 # .vscode/*
