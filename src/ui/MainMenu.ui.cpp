@@ -2,6 +2,7 @@
 
 void MainMenu::mainMenu()
 {
+    clearScreen();
     displayWelcomeMessage();
 
     do
@@ -38,6 +39,7 @@ void MainMenu::displayWelcomeMessage()
 
 int MainMenu::displayAnthillMenu()
 {
+    clearScreen();
     int anthillMenuChoiceUser;
     do
     {
@@ -65,33 +67,33 @@ int MainMenu::displayAnthillMenu()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             anthillMenuChoiceUser = -1;
         }
-    } while (!inputValidator.isValidDigit(anthillMenuChoiceUser, 7));
+    } while (!inputValidator.isValidDigit(anthillMenuChoiceUser, 6));
 
     return anthillMenuChoiceUser;
 }
 
 int MainMenu::displayMenuChooseAlgorithm()
 {
-        int algorithmChoiseUser; 
+        int algorithmMenuChoiceUser; 
         do {
-
             cout << "\n"
             << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
             << "       *                                            *\n"
             << "       *           CHOOSE A AN ALGORITHM            *\n"
             << "       *                                            *\n"
-            << "       * (1) BFS - Breadth-First Search             *\n"
-            << "       * (2) DFS - Depth-FirstSearch                *\n"
+            << "       *   (1) BFS - Breadth-First Search           *\n"
+            << "       *   (2) DFS - Depth-FirstSearch              *\n"
             << "       *                                            *\n"
-            << "       * (3) Previous                               *\n"
-            << "       * (4) Quit                                   *\n"
+            << "       *   (3) Previous                             *\n"
+            << "       *   (4) Quit                                 *\n"
             << "       *                                            *\n"
             << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
             << "> Select an option : ";
-        } while (!inputValidator.isValidDigit(algorithmChoiseUser, 4));
-        cin >> algorithmChoiseUser;
+            cin >> algorithmMenuChoiceUser;
 
-    return algorithmChoiseUser;
+        } while (!inputValidator.isValidDigit(algorithmMenuChoiceUser, 4));
+
+    return algorithmMenuChoiceUser;
 }
 
 void MainMenu::displayRectangleWithTitle(string text)
@@ -118,24 +120,10 @@ void MainMenu::displayRectangleWithTitleAndVariable(string text, int chiffre)
     cout << endl;
 }
 
-void MainMenu::handleAnthillChoice(int userFilterChoice)
+void MainMenu::handleAnthillChoice(int anthillChoiceUser)
 {
     clearScreen();
-    vector<string> menuListTitle = {
-        "ANTHILL 0",
-        "ANTHILL 1",        
-        "ANTHILL 2",
-        "ANTHILL 3",
-        "ANTHILL 4",    
-        "ANTHILL 5",
-        "QUIT"};
-
-    if (userFilterChoice >= 1 && userFilterChoice <= menuListTitle.size()-1)
-    {
-        displayRectangleWithTitle(menuListTitle[userFilterChoice]);
-    }
-
-    switch (userFilterChoice)
+    switch (anthillChoiceUser)
     {
     case 0:
         break;    
@@ -148,17 +136,16 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
     case 4:
         break;
     case 5:
-        break;    
+       break;    
     case 6:
         break;
-
     default:
-        cout << "Invalid Menu choice. Try again." << endl;
+        cout << "Invalid Menu choice @handleAnthillChoice. Try again." << endl;
         break;
     }
 };
 
-void MainMenu::handleAlgorithmChoice(int userFilterChoice)
+void MainMenu::handleAlgorithmChoice(int algorithmChoiceUser)
 {
     clearScreen();
 
@@ -168,12 +155,12 @@ void MainMenu::handleAlgorithmChoice(int userFilterChoice)
         "PREVIOUS",
         "QUIT"};
 
-    if (userFilterChoice >= 1 && userFilterChoice <= menuListTitle.size()-2)
+    if (algorithmChoiceUser >= 1 && algorithmChoiceUser <= menuListTitle.size()-2)
     {
-        displayRectangleWithTitle(menuListTitle[userFilterChoice -1]);
+        displayRectangleWithTitle(menuListTitle[algorithmChoiceUser -1]);
     }
 
-    switch (userFilterChoice)
+    switch (algorithmChoiceUser)
     {
     case 1:
         break;
@@ -182,11 +169,15 @@ void MainMenu::handleAlgorithmChoice(int userFilterChoice)
     case 3:
         break;
     case 4:
-        anthillMenuChoiceUser = 6;
+        // anthillMenuChoiceUser=6;
+        exit(0);
+        break;   
+    case 5:
+        anthillMenuChoiceUser=6;
         break;
 
     default:
-        cout << "Invalid Menu choice. Try again." << endl;
+        cout << "Invalid Menu choice @handleAlgorithmChoice. Try again." << endl;
         break;
     }
 };
