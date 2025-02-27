@@ -3,7 +3,6 @@
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
-using filesystem::current_path;
 
 #include <iostream>
 using namespace std;
@@ -12,6 +11,7 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <filesystem>
+using filesystem::current_path;
 
 class DataManager {
 public:

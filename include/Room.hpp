@@ -1,7 +1,6 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
 #include "InputValidator.hpp"
-#include "Anthill.hpp"
 
 #include <iostream>
 #include <vector>
