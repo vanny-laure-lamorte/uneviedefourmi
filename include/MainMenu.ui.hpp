@@ -2,6 +2,7 @@
 #define MAINMENU_HPP
 #include "InputValidator.hpp"
 
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -27,6 +28,8 @@ public:
      */
     void displayWelcomeMessage();
 
+    int displayMenuChooseAlgorithm();
+
     /**
      * @brief Displays the anthill menu and ask the user to select an option.
      * It validates the user's input to ensure it's a valid menu option.
@@ -48,6 +51,8 @@ public:
      * @param text The title to display inside the rectangle.
      */
     void displayRectangleWithTitle(string text);
+
+    void displayRectangleWithTitleAndVariable(string text, int chiffre);
     
 
     /**

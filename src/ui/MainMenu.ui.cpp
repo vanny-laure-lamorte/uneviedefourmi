@@ -10,6 +10,11 @@ void MainMenu::mainMenu()
         anthillMenuChoiceUser = displayAnthillMenu();
         handleAnthillChoice(anthillMenuChoiceUser);
 
+        if (anthillMenuChoiceUser != 6){
+            int algorithmChoice = displayMenuChooseAlgorithm();
+        }
+
+
     } while (anthillMenuChoiceUser != 6);
     cout << endl
          << "Goodbye! See you soon! :) \n \n" << endl;
@@ -26,10 +31,11 @@ void MainMenu::displayWelcomeMessage()
          << "       *       B2 Logiciel - 2025                  *\n"
          << "       *                                           *\n"
          << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
-         << "> Press Enter to continue.";
+         << "> Press Enter to continue";
 
     cin.get();
     clearScreen();
+
 }
 
 int MainMenu::displayAnthillMenu()
@@ -61,11 +67,34 @@ int MainMenu::displayAnthillMenu()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             anthillMenuChoiceUser = -1;
         }
-    } while (!inputValidator.isValidDigit(anthillMenuChoiceUser, 6));
+    } while (!inputValidator.isValidDigit(anthillMenuChoiceUser, 7));
 
     return anthillMenuChoiceUser;
 }
 
+int MainMenu::displayMenuChooseAlgorithm()
+{
+        clearScreen();
+
+        int algorithmChoiseUser; 
+        cout << "\n"
+        << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
+        << "       *                                            *\n"
+        << "       *           CHOOSE A AN ALGORITHM            *\n"
+        << "       *                                            *\n"
+        << "       * (1) BFS - Breadth-First Search             *\n"
+        << "       * (2) DFS - Depth-FirstSearch                *\n"
+        << "       *                                            *\n"
+        << "       * (3) Previous                               *\n"
+        << "       * (4) Quit                                   *\n"
+        << "       *                                            *\n"
+        << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
+        << "> Select an option : ";
+
+        cin >> algorithmChoiseUser;
+
+    return algorithmChoiseUser;
+}
 
 void MainMenu::displayRectangleWithTitle(string text)
 {
@@ -77,6 +106,20 @@ void MainMenu::displayRectangleWithTitle(string text)
     cout << string(rectangleWidth, '*') << endl;
     cout << endl;
 }
+
+void MainMenu::displayRectangleWithTitleAndVariable(string text, int chiffre)
+{
+    string textWithChiffre = text + " " + to_string(chiffre); 
+    
+    int textLength = textWithChiffre.length();
+    int rectangleWidth = textLength + 4; 
+    cout << endl
+         << string(rectangleWidth, '*') << endl;
+    cout << "* " << textWithChiffre << " *" << endl;
+    cout << string(rectangleWidth, '*') << endl;
+    cout << endl;
+}
+
 
 void MainMenu::handleAnthillChoice(int userFilterChoice)
 {
@@ -112,6 +155,8 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
     case 4:
         break;
     case 5:
+        break;    
+    case 6:
         break;
 
     default:
