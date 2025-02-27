@@ -1,7 +1,7 @@
 #include "DataManager.hpp"
 
-std::vector<std::filesystem::path> DataManager::scanFilesInJson() {
-    std::vector<std::filesystem::path> files;
+vector<filesystem::path> DataManager::scanFilesInJson() {
+    vector<filesystem::path> files;
     for (const auto & entry : std::filesystem::directory_iterator(std::filesystem::current_path().parent_path().string()+"\\assets\\json")) {
         files.push_back(entry.path());
     }
@@ -9,8 +9,7 @@ std::vector<std::filesystem::path> DataManager::scanFilesInJson() {
 }
 
 json DataManager::getAnthillData(int anthillNumber) {
-    //maybe add an interface to allow the user to choose the file here it is hardcoded below
-    std::string filePath = scanFilesInJson()[0].string();
+    string filePath = scanFilesInJson()[0].string();
     ifstream file(filePath);  
     if (!file.is_open()) {
         cerr << "Error opening the JSON file.\n";

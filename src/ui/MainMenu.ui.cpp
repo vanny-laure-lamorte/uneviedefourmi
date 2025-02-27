@@ -90,7 +90,6 @@ int MainMenu::displayMenuChooseAlgorithm()
             << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
             << "> Select an option : ";
             cin >> algorithmMenuChoiceUser;
-
         } while (!inputValidator.isValidDigit(algorithmMenuChoiceUser, 4));
 
     return algorithmMenuChoiceUser;
@@ -141,7 +140,7 @@ void MainMenu::handleAnthillChoice(int anthillChoiceUser)
     case 6:
         break;
     default:
-        cout << "Invalid Menu choice @handleAnthillChoice. Try again." << endl;
+        cout << "Invalid Menu choice. Try again." << endl;
         break;
     }
 };
@@ -170,15 +169,11 @@ void MainMenu::handleAlgorithmChoice(int algorithmChoiceUser)
     case 3:
         break;
     case 4:
-        // anthillMenuChoiceUser=6;
-        exit(0);
-        break;   
-    case 5:
         anthillMenuChoiceUser=6;
         break;
 
     default:
-        cout << "Invalid Menu choice @handleAlgorithmChoice. Try again." << endl;
+        cout << "Invalid Menu choice. Try again." << endl;
         break;
     }
 };

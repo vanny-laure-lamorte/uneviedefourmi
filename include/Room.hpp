@@ -1,6 +1,7 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
 #include "InputValidator.hpp"
+#include "Anthill.hpp"
 
 #include <iostream>
 #include <vector>
@@ -18,14 +19,27 @@ public:
         : name(roomName), capacity(roomCapacity) {}
     
     /**
-     * @brief
+     * @brief Add tunnels to the room
+     * @param Room* room
      */
+   void addTunnels(Room* room); 
 
-    void addTunnels(Room* room); 
-
-    // Info Room
+    /**
+     * @brief Get the name of the room
+     * @return string name
+     */
     string getName(); 
+
+    /**
+     * @brief Get the capacity of the room
+     * @return int capacity
+     */
     int getCapacity();
+
+    /**
+     * @brief Get the tunnels of the room
+     * @return vector<Room*> tunnels
+     */
     vector<Room*> getTunnels();
 
 private:

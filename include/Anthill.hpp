@@ -6,15 +6,14 @@
 #include "Room.hpp"
 #include "Ant.hpp"
 #include "DataManager.hpp"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <limits>
 using namespace std;
-
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
 
 class Anthill
 {
@@ -27,30 +26,28 @@ public:
     vector<Ant> ants;
     Room *Sv;
     Room *Sd;
-    int step =1;
+    int step = 1;
 
     Anthill(json anthillData);
 
     void moveAnts();
 
     /** 
-     * Displays the current positions of all the ants
-     * 
+     * @brief Displays the current positions of the ants in the anthill
+     * When the user presses Enter, the ants move to the next room
     */
     void displayAntLocationStepByStep();
-
+    
+    /** 
+     * @brief Displays all info related to the anthill choosen
+     * number of rooms, number of ants, etc.
+    */
     void displayAnthillInfo();
 
-
-
 private:
-    // Finds and returns a room pointer by its name
+    
     Room *findRoomByName(const string &roomName);
-
-    // Checks if an ant can move to a given room based on the room's capacity
     bool canMoveToRoom(Room *room);
-
-    // Counts the number of ants in a given room
     int getAntsInRoom(Room *room);
 };
 
