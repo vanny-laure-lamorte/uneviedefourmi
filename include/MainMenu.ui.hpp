@@ -1,7 +1,8 @@
 #ifndef MAINMENU_HPP
 #define MAINMENU_HPP
 #include "InputValidator.hpp"
-
+#include "DataManager.hpp"
+#include "DataManager.hpp"
 
 #include <iostream>
 #include <string>

@@ -122,11 +122,12 @@ void MainMenu::displayRectangleWithTitleAndVariable(string text, int chiffre)
 
 void MainMenu::handleAnthillChoice(int anthillChoiceUser)
 {
+    DataManager dataManager;
     clearScreen();
     switch (anthillChoiceUser)
     {
     case 0:
-        break;    
+        dataManager.getAnthillData(0);
     case 1:
         break;
     case 2:
@@ -163,7 +164,7 @@ void MainMenu::handleAlgorithmChoice(int algorithmChoiceUser)
     switch (algorithmChoiceUser)
     {
     case 1:
-        break;
+        
     case 2:
         break;
     case 3:
