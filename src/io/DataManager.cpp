@@ -1,28 +1,35 @@
 #include "DataManager.hpp"
 
-vector<filesystem::path> DataManager::scanFilesInJson() {
-    vector<filesystem::path> files;
-    for (const auto & entry : std::filesystem::directory_iterator(std::filesystem::current_path().parent_path().string()+"\\assets\\json")) {
+std::vector<std::filesystem::path> DataManager::scanFilesInJson()
+{
+    std::vector<std::filesystem::path> files;
+    for (const auto &entry : std::filesystem::directory_iterator(std::filesystem::current_path().parent_path().string() + "\\assets\\json"))
+    {
         files.push_back(entry.path());
     }
     return files;
 }
 
-json DataManager::getAnthillData(int anthillNumber) {
+json DataManager::getAnthillData(int anthillNumber)
+{
     string filePath = scanFilesInJson()[0].string();
-    ifstream file(filePath);  
-    if (!file.is_open()) {
+    ifstream file(filePath);
+    if (!file.is_open())
+    {
         cerr << "Error opening the JSON file.\n";
-        return json();  
+        return json();
     }
 
     json data;
     file >> data;
 
-    for (const auto& anthill : data) {
-        if (anthill["anthill"] == anthillNumber) {
-            cout << "Matching anthill found:\n" << anthill.dump(4) << endl;
-            return anthill;  
+    for (const auto &anthill : data)
+    {
+        if (anthill["anthill"] == anthillNumber)
+        {
+            cout << "Matching anthill found:\n"
+                 << anthill.dump(4) << endl;
+            return anthill;
         }
     }
     return data;
@@ -52,7 +59,7 @@ json DataManager::getAnthillData(int anthillNumber) {
 //             std::string node;
 //             ss >> node;
 //             std::cout << "Start node: " << node << std::endl;
-            
+
 //         }
 //     }
 // }

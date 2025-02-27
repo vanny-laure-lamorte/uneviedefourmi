@@ -3,7 +3,6 @@
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
-using filesystem::current_path;
 
 #include <iostream>
 using namespace std;
@@ -12,10 +11,11 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <filesystem>
+using filesystem::current_path;
 
-class DataManager {
+class DataManager
+{
 public:
-
     /**
      * @brief Retrieve JSON data based on the anthill number
      * @param int anthillNumber

@@ -8,10 +8,8 @@ using namespace std;
 DataManager dataManager;
 MainMenu mainMenu;
 
-
 int main()
 {
     mainMenu.mainMenu();
-
     return 0;
 }
