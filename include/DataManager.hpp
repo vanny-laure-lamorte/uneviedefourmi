@@ -7,9 +7,13 @@ using namespace std;
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
+
 #include <fstream>
 #include <string>
 #include <vector>
+#include <filesystem>
+
+using std::filesystem::current_path;
 
 class DataManager {
 public:
@@ -22,14 +26,12 @@ public:
      */
     json getAnthillData(int anthillNumber);
 
-    void setFilePath(const string& path) {
-        filePath = path;
-    };
+    /**
+     * @brief Scan files in the json folder
+     * @return vector<filesystem::path> files
+     */
+    std::vector<std::filesystem::path> scanFilesInJson();
 
-
-private:
-
-    string filePath = "../src/Json/uneviedefourmi.json";
 
 };
 
