@@ -1,6 +1,5 @@
 #include "MainMenu.ui.hpp"
 
-
 void MainMenu::mainMenu()
 {
     displayWelcomeMessage();
@@ -12,8 +11,8 @@ void MainMenu::mainMenu()
 
         if (anthillMenuChoiceUser != 6){
             int algorithmChoice = displayMenuChooseAlgorithm();
+            handleAlgorithmChoice(algorithmChoice);
         }
-
 
     } while (anthillMenuChoiceUser != 6);
     cout << endl
@@ -35,7 +34,6 @@ void MainMenu::displayWelcomeMessage()
 
     cin.get();
     clearScreen();
-
 }
 
 int MainMenu::displayAnthillMenu()
@@ -74,23 +72,23 @@ int MainMenu::displayAnthillMenu()
 
 int MainMenu::displayMenuChooseAlgorithm()
 {
-        clearScreen();
-
         int algorithmChoiseUser; 
-        cout << "\n"
-        << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
-        << "       *                                            *\n"
-        << "       *           CHOOSE A AN ALGORITHM            *\n"
-        << "       *                                            *\n"
-        << "       * (1) BFS - Breadth-First Search             *\n"
-        << "       * (2) DFS - Depth-FirstSearch                *\n"
-        << "       *                                            *\n"
-        << "       * (3) Previous                               *\n"
-        << "       * (4) Quit                                   *\n"
-        << "       *                                            *\n"
-        << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
-        << "> Select an option : ";
+        do {
 
+            cout << "\n"
+            << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
+            << "       *                                            *\n"
+            << "       *           CHOOSE A AN ALGORITHM            *\n"
+            << "       *                                            *\n"
+            << "       * (1) BFS - Breadth-First Search             *\n"
+            << "       * (2) DFS - Depth-FirstSearch                *\n"
+            << "       *                                            *\n"
+            << "       * (3) Previous                               *\n"
+            << "       * (4) Quit                                   *\n"
+            << "       *                                            *\n"
+            << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
+            << "> Select an option : ";
+        } while (!inputValidator.isValidDigit(algorithmChoiseUser, 4));
         cin >> algorithmChoiseUser;
 
     return algorithmChoiseUser;
@@ -120,9 +118,9 @@ void MainMenu::displayRectangleWithTitleAndVariable(string text, int chiffre)
     cout << endl;
 }
 
-
 void MainMenu::handleAnthillChoice(int userFilterChoice)
 {
+    clearScreen();
     vector<string> menuListTitle = {
         "ANTHILL 0",
         "ANTHILL 1",        
@@ -132,14 +130,9 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
         "ANTHILL 5",
         "QUIT"};
 
-    if (userFilterChoice >= 1 && userFilterChoice <= menuListTitle.size())
+    if (userFilterChoice >= 1 && userFilterChoice <= menuListTitle.size()-1)
     {
         displayRectangleWithTitle(menuListTitle[userFilterChoice]);
-    }
-    else if (userFilterChoice != 0)
-    {
-        cout << "Invalid Menu choice. Try again." << endl;
-        return;
     }
 
     switch (userFilterChoice)
@@ -157,6 +150,39 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
     case 5:
         break;    
     case 6:
+        break;
+
+    default:
+        cout << "Invalid Menu choice. Try again." << endl;
+        break;
+    }
+};
+
+void MainMenu::handleAlgorithmChoice(int userFilterChoice)
+{
+    clearScreen();
+
+    vector<string> menuListTitle = {
+        "BFS - Breadth-First Search",
+        "DFS - Depth-First Search",        
+        "PREVIOUS",
+        "QUIT"};
+
+    if (userFilterChoice >= 1 && userFilterChoice <= menuListTitle.size()-2)
+    {
+        displayRectangleWithTitle(menuListTitle[userFilterChoice -1]);
+    }
+
+    switch (userFilterChoice)
+    {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        anthillMenuChoiceUser = 6;
         break;
 
     default:

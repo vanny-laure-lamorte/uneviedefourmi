@@ -28,22 +28,26 @@ public:
      */
     void displayWelcomeMessage();
 
-    int displayMenuChooseAlgorithm();
-
+    
     /**
      * @brief Displays the anthill menu and ask the user to select an option.
      * It validates the user's input to ensure it's a valid menu option.
      * 
      * @return int - The user's menu choice 
-    */
+     */
     int displayAnthillMenu();
-
+    
     /**
      * @brief Handles the user's choice from the anthill menu and performs * actions.
      * 
      * @param userFilterChoice The user's choice from the anthill menu
      */
     void handleAnthillChoice(int userFilterChoice);
+
+    int displayMenuChooseAlgorithm();
+
+    void handleAlgorithmChoice(int userFilterChoice);
+
 
     /**
      * @brief Displays a rectangle with a title inside, centered.
