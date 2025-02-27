@@ -1,15 +1,11 @@
 #include "Anthill.hpp"
-#include <queue>
-#include <unordered_map>
 
 Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pair<string, string>> roomConnection)
     : antsNumber(antsNumber)
 {
-    cout << "Anthill constructor" << endl;
-
     for (const auto &room : roomsData)
     {
-        if (room.first == "Sv" || room.first == "Sd")
+        if (room.first == "SV" || room.first == "SD")
             rooms.push_back(make_unique<Room>(room.first, 99999));
         else
             rooms.push_back(make_unique<Room>(room.first, room.second));
@@ -28,17 +24,19 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
 
     for (int i = 0; i < antsNumber; i++)
     {
-        antsColony.push_back(make_unique<Ant>(i, "Sv"));
-        getRoomByName("Sv")->addAnt(antsColony.back().get());
+        antsColony.push_back(make_unique<Ant>(i, "SV"));
+        getRoomByName("SV")->addAnt(antsColony.back().get());
     }
 
+    cout << "Sile Anthill created \n\n";
     bool allAntsArrived = false;
-    int step = 0;
+    int step = 1;
     while (!allAntsArrived)
     {
         cout << "****** Step " << step++ << " ******" << endl;
         allAntsArrived = anthillResolution();
     }
+    cout << "\nAll ants have arrived in " << step << " steps !\n\n";
 }
 
 Room *Anthill::getRoomByName(const string &name)
@@ -51,21 +49,21 @@ Room *Anthill::getRoomByName(const string &name)
 
 Anthill::~Anthill()
 {
-    cout << "Anthill destructor" << endl;
+    cout << "Sile Anthill destroying" << endl;
 }
 
-vector<string> Anthill::computeShortestPath(const string &start, const string &end)
+vector<string> Anthill::computeShortestPathBfs(const string &start, const string &end)
 {
-    queue<vector<string>> q;
+    queue<vector<string>> pathQueue;
     set<string> visited;
 
-    q.push({start});
+    pathQueue.push({start});
     visited.insert(start);
 
-    while (!q.empty())
+    while (!pathQueue.empty())
     {
-        vector<string> path = q.front();
-        q.pop();
+        vector<string> path = pathQueue.front();
+        pathQueue.pop();
 
         string lastRoom = path.back();
         if (lastRoom == end)
@@ -81,7 +79,7 @@ vector<string> Anthill::computeShortestPath(const string &start, const string &e
             {
                 vector<string> newPath = path;
                 newPath.push_back(neighbor->getName());
-                q.push(newPath);
+                pathQueue.push(newPath);
                 visited.insert(neighbor->getName());
             }
         }
@@ -96,7 +94,7 @@ bool Anthill::anthillResolution()
     for (auto &ant : antsColony)
     {
         allAntsArrived = false;
-        vector<string> path = computeShortestPath(ant->getPosition(), "Sd");
+        vector<string> path = computeShortestPathBfs(ant->getPosition(), "SD");
 
         if (path.size() > 1)
         {
@@ -110,7 +108,7 @@ bool Anthill::anthillResolution()
                 ant->setPosition(nextRoom->getName());
                 cout << "Ant " << ant->getId() << " moved from " << currentRoom->getName()
                      << " to " << nextRoom->getName() << endl;
-                if (ant->getPosition() == "Sd")
+                if (ant->getPosition() == "SD")
                 {
                     allAntsArrived = true;
                 }

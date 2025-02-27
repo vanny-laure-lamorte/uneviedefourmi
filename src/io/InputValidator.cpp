@@ -1,6 +1,4 @@
 #include "InputValidator.hpp"
-#include <iostream>
-using namespace std;
 
 bool InputValidator::isValidDigit(int userInput, int maxOption){
     if(!isdigit(userInput)){

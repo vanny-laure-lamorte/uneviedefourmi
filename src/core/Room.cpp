@@ -1,15 +1,15 @@
 #include "Room.hpp"
-#include "Ant.hpp"
-#include <algorithm>
 
 Room::Room(string name, int capacity) : name(name), capacity(capacity)
 {
     cout << "Room constructor: " << name << endl;
 }
 
-Room::~Room() {}
+Room::~Room() {
+    cout << "Room destroyed: " << name << endl;
+}
 
-void Room::addConnection(Room* room)
+void Room::addConnection(Room *room)
 {
     if (find(connections.begin(), connections.end(), room) == connections.end())
     {
@@ -18,13 +18,13 @@ void Room::addConnection(Room* room)
     }
 }
 
-void Room::addAnt(Ant* ant)
+void Room::addAnt(Ant *ant)
 {
     ants.push_back(ant);
     capacity--;
 }
 
-void Room::removeAnt(Ant* ant)
+void Room::removeAnt(Ant *ant)
 {
     ants.erase(remove(ants.begin(), ants.end(), ant), ants.end());
     capacity++;

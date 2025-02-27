@@ -1,8 +1,8 @@
 #ifndef INPUTVALIDATOR_HPP
 #define INPUTVALIDATOR_HPP
 
-#include <iostream>
 using namespace std;
+#include <iostream>
 
 class InputValidator {
 public:

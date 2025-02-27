@@ -4,11 +4,6 @@
 #include "Anthill.hpp"
 #include "DataManager.hpp"
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <limits>
-
 using namespace std;
 
 class MainMenu
@@ -32,21 +27,18 @@ public:
     /**
      * @brief Displays the anthill menu and ask the user to select an option.
      * It validates the user's input to ensure it's a valid menu option.
-     * 
      * @return int - The user's menu choice 
     */
     int displayAnthillMenu();
 
     /**
      * @brief Handles the user's choice from the anthill menu and performs * actions.
-     * 
      * @param userFilterChoice The user's choice from the anthill menu
      */
     void handleAnthillChoice(int userFilterChoice);
 
     /**
      * @brief Displays a rectangle with a title inside, centered.
-     * 
      * @param text The title to display inside the rectangle.
      */
     void displayRectangleWithTitle(string text);

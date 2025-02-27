@@ -1,13 +1,11 @@
 #ifndef DATA_MANAGER_HPP
 #define DATA_MANAGER_HPP
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
+using namespace std;
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include "nlohmann/json.hpp"
-
-using json = nlohmann::json;
-using namespace std;
 
 class DataManager
 {
