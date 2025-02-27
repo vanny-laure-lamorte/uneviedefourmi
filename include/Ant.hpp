@@ -1,16 +1,23 @@
 #ifndef ANT_HPP
 #define ANT_HPP
-#include "InputValidator.hpp"
 
 #include <iostream>
+#include <string>
+
 using namespace std;
 
-class Ant
-{
-public:   
-
+class Ant {
 private:
-   
+    int id;
+    string position;
+
+public:
+    Ant(int id, string position);
+    ~Ant();
+
+    int getId() const { return id; }
+    string getPosition() const { return position; }
+    void setPosition(string newPosition);
 };
 
-#endif // ANT_HPP
+#endif

@@ -1,5 +1,48 @@
 #include "MainMenu.ui.hpp"
 
+void MainMenu::handleAnthillChoice(int userFilterChoice)
+{
+    vector<string> menuListTitle = {
+        "ANTHILL 0",
+        "ANTHILL 1",
+        "ANTHILL 2",
+        "ANTHILL 3",
+        "ANTHILL 4",
+        "ANTHILL 5",
+        "QUIT"};
+
+    if (userFilterChoice < 0 || userFilterChoice >= menuListTitle.size() - 1) {
+        cout << "Invalid Menu choice. Try again." << endl;
+        return;
+    }
+
+    displayRectangleWithTitle(menuListTitle[userFilterChoice]);
+
+    DataManager dataManager("../src/assets/anthills.json");
+    json anthillData = dataManager.getAnthillData(userFilterChoice);
+
+    if (anthillData.empty()) {
+        cout << "Error: Anthill data not found!" << endl;
+        return;
+    }
+
+    int antsNumber = anthillData["ants"];
+    
+    vector<pair<string, int>> roomsData;
+    for (auto& [key, value] : anthillData["rooms"].items()) {
+        roomsData.emplace_back(key, value);
+    }
+
+    vector<pair<string, string>> roomConnection;
+    for (auto& conn : anthillData["connections"]) {
+        if (conn.is_array() && conn.size() == 2) {
+            roomConnection.emplace_back(conn[0], conn[1]);
+        }
+    }
+
+    Anthill anthill(antsNumber, roomsData, roomConnection);
+}
+
 
 void MainMenu::mainMenu()
 {
@@ -9,10 +52,12 @@ void MainMenu::mainMenu()
     {
         anthillMenuChoiceUser = displayAnthillMenu();
         handleAnthillChoice(anthillMenuChoiceUser);
+        cin.get();
 
     } while (anthillMenuChoiceUser != 6);
     cout << endl
-         << "Goodbye! See you soon! :) \n \n" << endl;
+         << "Goodbye! See you soon! :) \n \n"
+         << endl;
 }
 
 void MainMenu::displayWelcomeMessage()
@@ -38,20 +83,20 @@ int MainMenu::displayAnthillMenu()
     do
     {
         cout << "\n"
-             << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
-             << "       *                                            *\n"
-             << "       *            CHOOSE A ANTHILL TYPE           *\n"
-             << "       *                                            *\n"
-             << "       *      (0) ANTHILL 0                         *\n"
-             << "       *      (1) ANTHILL 1                         *\n"
-             << "       *      (2) ANTHILL 2                         *\n"
-             << "       *      (3) ANTHILL 3                         *\n"
-             << "       *      (4) ANTHILL 4                         *\n"
-             << "       *      (5) ANTHILL 5                         *\n"
-             << "       *                                            *\n"
-             << "       *      (6) Quit                              *\n"
-             << "       *                                            *\n"
-             << "       * * * * * * * * * * * * * * * * * * * * * * * \n\n"
+             << "         * * * * * * * * * * * * * * * * * * * * * *\n"
+             << "        *                                           *\n"
+             << "        *           CHOOSE A ANTHILL TYPE           *\n"
+             << "        *                                           *\n"
+             << "        *      (0) ANTHILL 0                        *\n"
+             << "        *      (1) ANTHILL 1                        *\n"
+             << "        *      (2) ANTHILL 2                        *\n"
+             << "        *      (3) ANTHILL 3                        *\n"
+             << "        *      (4) ANTHILL 4                        *\n"
+             << "        *      (5) ANTHILL 5                        *\n"
+             << "        *                                           *\n"
+             << "        *      (6) Quit                             *\n"
+             << "        *                                           *\n"
+             << "         * * * * * * * * * * * * * * * * * * * * * * \n\n"
              << "> Select an option: ";
         cin >> anthillMenuChoiceUser;
 
@@ -66,7 +111,6 @@ int MainMenu::displayAnthillMenu()
     return anthillMenuChoiceUser;
 }
 
-
 void MainMenu::displayRectangleWithTitle(string text)
 {
     int textLength = text.length();
@@ -77,45 +121,3 @@ void MainMenu::displayRectangleWithTitle(string text)
     cout << string(rectangleWidth, '*') << endl;
     cout << endl;
 }
-
-void MainMenu::handleAnthillChoice(int userFilterChoice)
-{
-    vector<string> menuListTitle = {
-        "ANTHILL 0",
-        "ANTHILL 1",        
-        "ANTHILL 2",
-        "ANTHILL 3",
-        "ANTHILL 4",    
-        "ANTHILL 5",
-        "QUIT"};
-
-    if (userFilterChoice >= 1 && userFilterChoice <= menuListTitle.size())
-    {
-        displayRectangleWithTitle(menuListTitle[userFilterChoice]);
-    }
-    else if (userFilterChoice != 0)
-    {
-        cout << "Invalid Menu choice. Try again." << endl;
-        return;
-    }
-
-    switch (userFilterChoice)
-    {
-    case 0:
-        break;    
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    case 5:
-        break;
-
-    default:
-        cout << "Invalid Menu choice. Try again." << endl;
-        break;
-    }
-};
