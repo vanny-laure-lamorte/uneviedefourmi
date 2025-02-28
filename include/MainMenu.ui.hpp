@@ -3,7 +3,6 @@
 
 #include "InputValidator.hpp"
 #include "DataManager.hpp"
-#include "DataManager.hpp"
 
 #include <iostream>
 #include <string>

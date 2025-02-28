@@ -126,7 +126,7 @@ void MainMenu::handleAnthillChoice(int anthillChoiceUser)
     switch (anthillChoiceUser)
     {
     case 0:
-        dataManager.getAnthillData(0);
+        // dataManager.getAnthillData(0);
     case 1:
         break;
     case 2:
