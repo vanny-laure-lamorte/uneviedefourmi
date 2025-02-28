@@ -1,6 +1,8 @@
 #ifndef DATAMANAGER_HPP
 #define DATAMANAGER_HPP
 
+#include "Anthill.hpp"
+
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
@@ -15,7 +17,8 @@ using filesystem::current_path;
 
 class DataManager {
 public:
-
+    Anthill loadAnthillFromJson(int anthillNumber);
+private:
     /**
      * @brief Retrieve JSON data based on the anthill number
      * @param int anthillNumber

@@ -4,6 +4,7 @@
         "*.sqlbook": "sql",
         "*.ndjson": "jsonl",
         "*.dbclient-js": "javascript",
+        "*.json": "json",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -83,7 +84,10 @@
         "shared_mutex": "cpp",
         "stdfloat": "cpp",
         "text_encoding": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "forward_list": "cpp",
+        "ranges": "cpp",
+        "valarray": "cpp"
     },
     "makefile.configurations": [
         {
