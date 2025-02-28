@@ -20,7 +20,6 @@ class Anthill
 public:
 
     DataManager dataManager;
-    MainMenu mainMenu;
     
     vector<Room> rooms;
     vector<Ant> ants;

@@ -6,6 +6,8 @@
 #include "Room.hpp"
 #include "Ant.hpp"
 
+#include "Anthill.hpp"
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -59,14 +61,6 @@ public:
      * @param anthillAlgoritmChoiceUser The user's choice from the anthill menu.
      */
     void handleAlgorithmChoice(int anthillAlgoritmChoiceUser);
-
-    /**
-     * @brief Displays anthill info according to the user's choice from the anthill menu
-     */
-    void displayAnthillRoomInfo(string roomName, int capacity, vector<string> tunnelNames);
-    void displayAnthillAntInfo(string antName, int id, string currentRoom);
-
-    void displayAnthillInfo1(int anthillNumber);
 
     /**
      * @brief Displays a rectangle with a title inside, centered.
