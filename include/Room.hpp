@@ -41,6 +41,8 @@ public:
      */
     vector<Room*> getTunnels();
 
+    vector<string> getTunnelsName();
+
 private:
    
 };

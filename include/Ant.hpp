@@ -22,6 +22,8 @@ public:
     int getId();
     Room* getStartRoom();
 
+    string getCurrentRoomName();
+
 private:
    
 };
