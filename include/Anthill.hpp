@@ -2,10 +2,8 @@
 #define ANTHILL_HPP
 
 #include "InputValidator.hpp"
-#include "MainMenu.ui.hpp"
 #include "Room.hpp"
 #include "Ant.hpp"
-#include "DataManager.hpp"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
