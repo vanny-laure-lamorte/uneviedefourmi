@@ -20,7 +20,7 @@ include_directories(
     ${Python3_NumPy_INCLUDE_DIRS}
 )
 
-file(GLOB SRC_FILES src/core/*.cpp src/io/*.cpp src/ui/*.cpp src/config/*.cpp src/main.cpp)
+file(GLOB SRC_FILES src/core/*.cpp src/io/*.cpp src/ui/*.cpp src/model/*.cpp src/main.cpp)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES}
                 Main.cpp)
