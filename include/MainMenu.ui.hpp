@@ -63,6 +63,7 @@ public:
      */
     void displayRectangleWithTitleAndVariable(string text, int number);
     void displayRectangleWithTitle(string text);    
+    // void displayAnthillInfo(vector<Room> rooms, vector<Ant> ants, Room* Sv, Room* Sd);
 
     /**
     * @brief Clears the console screen.
