@@ -18,6 +18,7 @@ using filesystem::current_path;
 class DataManager {
 public:
     Anthill loadAnthillFromJson(int anthillNumber);
+    // Room *findRoomByName(const string &roomName);
 private:
     /**
      * @brief Retrieve JSON data based on the anthill number
