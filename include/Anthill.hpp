@@ -2,6 +2,8 @@
 #define ANTHILL_HPP
 
 #include "InputValidator.hpp"
+#include "UIRenderer.hpp" //refactor
+
 #include "Room.hpp"
 #include "Ant.hpp"
 #include <nlohmann/json.hpp>
@@ -21,7 +23,8 @@ public:
     vector<Ant> anthillAntsList;
     Room *Sv;
     Room *Sd;
-    int step = 0;
+
+    int step;
 
     Anthill(const vector<Room> &roomsList, const vector<Ant> &antsList, 
         const Room *Sv, const Room *Sd, int step);

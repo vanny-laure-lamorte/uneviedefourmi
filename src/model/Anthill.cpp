@@ -7,62 +7,49 @@ Anthill::Anthill(const vector<Room> &roomsList, const vector<Ant> &antsList,
     // Assign the start and destination rooms
     this->Sv = findRoomByName(Sv->name);
     this->Sd = findRoomByName(Sd->name);
+
     displayAnthillInfo();
-    displayAntLocationStepByStep();
 }
 
-// Anthill::Anthill(const vector<Room>& roomsList, const vector<Ant>& antsList,
-//     const Room* Sv, const Room* Sd, int step) {
-
-//     for (auto& roomData : anthillData["rooms"].items()) {
-//         string roomName = roomData.key();
-//         int capacity = (roomData.value().is_null()) ? -1 : roomData.value().get<int>();
-//         rooms.push_back(Room(roomName, capacity));
-//     }
-
-//     Sv = findRoomByName("SV");
-//     Sd = findRoomByName("SD");
-
-//     int antCount = anthillData["ants"];
-//     for (int i = 0; i < antCount; ++i) {
-//         ants.push_back(Ant(i + 1, Sv));
-//     }
-
-//     for (auto& connection : anthillData["connections"]) {
-//         Room* fromRoom = findRoomByName(connection["from"]);
-//         Room* toRoom = findRoomByName(connection["to"]);
-//         fromRoom->addTunnels(toRoom);
-//     }
-
-
-// }
 
 void Anthill::displayAnthillInfo() {
 
-    // mainMenu.displayRectangleWithTitle(" ANTHILL INFORMATION ");
+    UIRenderer::displayRectangleWithTitle("ANTHILL INFORMATION");
 
-    cout << ">Rooms Information " << endl;
+    cout << "Rooms Information \n"
+    << "* * * * * * * * *" << endl;
     for (auto& room : anthillRoomsList) {
-        cout << "Room: " << room.getName() 
+        cout << "> Room: " << room.getName() 
              << ", Capacity: " << (room.getCapacity() == -1 ? "Unlimited" : to_string(room.getCapacity())) 
              << endl;
     }
+    cout << endl;
 
-    cout << "\n>Start Room: " << Sv->getName() << endl;
-    cout << ">End Room: " << Sd->getName() << endl;
+    cout << "starting and destination point\n"
+    << "* * * * * * * * * * * * * * * *";
+    cout << "\nStart Room: " << Sv->getName() << endl;
+    cout << "End Room: " << Sd->getName() << endl << endl;
 
-    cout << "\n>Ants Information " << endl;
+    cout << "Ants Information \n"
+    << "* * * * * * * * *" << endl;
     for (auto& ant : anthillAntsList) {
-        cout << "Ant " << ant.getId() << ", Start Room: " << ant.getStartRoom()->getName() << endl;
+        cout << "> Ant " << ant.getId() << ", Start Room: " << ant.getStartRoom()->getName() << endl;
     }
+    cout<<endl;
 
-    cout << "\n>Connections Information: " << endl;
+    cout << "Connections Information \n"
+    << "* * * * * * * * * * * *" << endl;
     for (auto& room : anthillRoomsList) {
         for (auto& tunnel : room.getTunnels()) {
             cout << "Room: " << room.getName() 
                  << " is connected to: " << tunnel->getName() << endl;
         }
     }
+
+    cout << "\n> Press Enter to move ants to the next step :)";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    cin.get();
+
 }
 
 Room* Anthill:: findRoomByName(const string& roomName) {
@@ -104,15 +91,16 @@ int Anthill::getAntsInRoom(Room* room) {
 
 void Anthill::displayAntLocationStepByStep() {
 
-    int step = 1;
+    step = 1;
+    UIRenderer::clearScreen();
+    UIRenderer::displayRectangleWithTitleAndVariable("ANT MOVEMENT STEP", step);
 
     while (true) {
-        // mainMenu.displayRectangleWithTitleAndVariable("ANT MOVEMENT STEP ", step);
         for (auto& ant : anthillAntsList) {
             cout << "Ant " << ant.getId() << " is in room " << ant.getStartRoom()->getName() << endl;
         }
 
-        cout << "\n>Press Enter to move ants to the next step ";
+        cout << "\n> Press Enter to move ants to the next step ";
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         bool allAtEnd = true; 

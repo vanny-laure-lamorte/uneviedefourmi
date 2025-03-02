@@ -2,19 +2,16 @@
 
 void MainMenu::mainMenu()
 {
-    clearScreen();
+    UIRenderer::clearScreen();
     displayWelcomeMessage();
 
     do
     {
-        anthillMenuChoiceUser = displayAnthillMenu();
-        handleAnthillChoice(anthillMenuChoiceUser);
-
+        anthillMenuChoiceUser = displayAnthillMenu();        
         if (anthillMenuChoiceUser != 6){
-            int algorithmChoice = displayMenuChooseAlgorithm();
-            handleAlgorithmChoice(algorithmChoice);
+            algorithmChoiceUser = displayMenuChooseAlgorithm();
+            handleAlgorithmChoice(anthillMenuChoiceUser, algorithmChoiceUser);
         }
-
     } while (anthillMenuChoiceUser != 6);
     cout << endl
          << "Goodbye! See you soon! :) \n \n" << endl;
@@ -32,17 +29,18 @@ void MainMenu::displayWelcomeMessage()
          << "       *                                           *\n"
          << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
          << "> Press Enter to continue";
-
     cin.get();
-    clearScreen();
+    UIRenderer::clearScreen();
 }
 
 int MainMenu::displayAnthillMenu()
 {
-    clearScreen();
+    UIRenderer::clearScreen();
     int anthillMenuChoiceUser;
     do
     {
+        cin.clear();
+
         cout << "\n"
              << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
              << "       *                                            *\n"
@@ -74,8 +72,12 @@ int MainMenu::displayAnthillMenu()
 
 int MainMenu::displayMenuChooseAlgorithm()
 {
-        int algorithmMenuChoiceUser; 
-        do {
+    int algorithmMenuChoiceUser; 
+    
+    UIRenderer::clearScreen();
+    
+    do {
+            cin.clear();
             cout << "\n"
             << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
             << "       *                                            *\n"
@@ -91,89 +93,56 @@ int MainMenu::displayMenuChooseAlgorithm()
             << "> Select an option : ";
             cin >> algorithmMenuChoiceUser;
         } while (!inputValidator.isValidDigit(algorithmMenuChoiceUser, 4));
+        
+        vector<string> menuListTitle = {
+            "BFS - Breadth-First Search",
+            "DFS - Depth-First Search",        
+            "PREVIOUS",
+            "QUIT"};
+            UIRenderer::displayRectangleWithTitle(menuListTitle[algorithmMenuChoiceUser -1]);
 
     return algorithmMenuChoiceUser;
 }
 
-void MainMenu::displayRectangleWithTitle(string text)
+void MainMenu::handleAlgorithmChoice( int anthillMenuChoiceUser, int algorithmChoiceUser)
 {
-    int textLength = text.length();
-    int rectangleWidth = textLength + 4;
-    cout << endl
-         << string(rectangleWidth, '*') << endl;
-    cout << "* " << text << " *" << endl;
-    cout << string(rectangleWidth, '*') << endl;
-    cout << endl;
-}
+    UIRenderer::clearScreen();
+    anthillMenuChoiceUser=0;
 
-void MainMenu::displayRectangleWithTitleAndVariable(string text, int chiffre)
-{
-    string textWithChiffre = text + " " + to_string(chiffre); 
+    if (algorithmChoiceUser == 4){
+        exit(0);
+        // anthillMenuChoiceUser=6; // debug
+    }
+    else if (algorithmChoiceUser != 3){
+        Anthill anthillCreation = dataManager.loadAnthillFromJson(anthillMenuChoiceUser);      
     
-    int textLength = textWithChiffre.length();
-    int rectangleWidth = textLength + 4; 
-    cout << endl
-         << string(rectangleWidth, '*') << endl;
-    cout << "* " << textWithChiffre << " *" << endl;
-    cout << string(rectangleWidth, '*') << endl;
-    cout << endl;
-}
+        UIRenderer::clearScreen();
 
-void MainMenu::handleAnthillChoice(int anthillChoiceUser)
-{
-    DataManager dataManager;
-    clearScreen();
-    switch (anthillChoiceUser)
-    {
-    case 0:
-        // dataManager.getAnthillData(0);
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    case 5:
-       break;    
-    case 6:
-        break;
-    default:
-        cout << "Invalid Menu choice. Try again." << endl;
-        break;
+        vector<string> menuListTitle = {
+            "BFS - Breadth-First Search",
+            "DFS - Depth-First Search",        
+            "PREVIOUS",
+            "QUIT"};
+
+        if (algorithmChoiceUser >= 1 && algorithmChoiceUser <= menuListTitle.size()-2)
+        {
+            UIRenderer::displayRectangleWithTitle(menuListTitle[algorithmChoiceUser -1]);
+        }   
+
+        switch (algorithmChoiceUser)
+        {
+        case 1: 
+        case 2 :
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();  
+            anthillCreation.displayAntLocationStepByStep(); 
+            break; 
+        default:
+            cout << "Invalid Menu choice. Try again." << endl;
+            break;
+        }
     }
-};
-
-void MainMenu::handleAlgorithmChoice(int algorithmChoiceUser)
-{
-    clearScreen();
-
-    vector<string> menuListTitle = {
-        "BFS - Breadth-First Search",
-        "DFS - Depth-First Search",        
-        "PREVIOUS",
-        "QUIT"};
-
-    if (algorithmChoiceUser >= 1 && algorithmChoiceUser <= menuListTitle.size()-2)
-    {
-        displayRectangleWithTitle(menuListTitle[algorithmChoiceUser -1]);
-    }
-
-    switch (algorithmChoiceUser)
-    {
-    case 1:
-        
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        anthillMenuChoiceUser=6;
-        break;
-
-    default:
-        cout << "Invalid Menu choice. Try again." << endl;
-        break;
-    }
+     else {
+        cout << "Error " << endl;
+    }    
 };

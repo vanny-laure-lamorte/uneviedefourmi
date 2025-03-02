@@ -10,8 +10,7 @@ bool InputValidator::isValidDigit(int userInput, int maxOption){
         }
         else
         {
-            cout << "\n> Please select a valid option :( \n";
-            cout << userInput << " " << maxOption << endl;
+            cout << "\nOption "<<userInput << " is not valid :( The max option is " << maxOption <<"." <<endl;
             return false;
         }
     } return false;

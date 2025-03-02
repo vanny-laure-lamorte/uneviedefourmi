@@ -2,7 +2,7 @@
 
 vector<filesystem::path> DataManager::scanFilesInJson() {
     vector<filesystem::path> files;
-    for (const auto & entry : std::filesystem::directory_iterator(std::filesystem::current_path().parent_path().string()+"\\assets\\json")) {
+    for (const auto & entry : filesystem::directory_iterator(filesystem::current_path().parent_path().string()+"\\assets\\json")) {
         files.push_back(entry.path());
     }
     return files;
@@ -21,7 +21,6 @@ json DataManager::getAnthillData(int anthillNumber) {
 
     for (const auto& anthill : data) {
         if (anthill["anthill"] == anthillNumber) {
-            cout << "Matching anthill found:\n" << anthill.dump(4) << endl;
             return anthill;  
         }
     }
@@ -35,10 +34,10 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
         json anthillData = getAnthillData(anthillNumber);
         if (anthillData.is_null())
         {
-            throw std::runtime_error("Anthill data is empty or invalid.");
+            throw runtime_error("Anthill data is empty or invalid.");
         }
 
-        std::vector<Room> rooms;
+        vector<Room> rooms;
         Room* vestibule = nullptr;
         Room* dortoir = nullptr;
 
@@ -52,16 +51,17 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
             else if (roomName == "SD")
                 dortoir = &rooms.back();
         }
+        cout << endl;
 
         if (!vestibule || !dortoir)
         {
-            throw std::runtime_error("Missing essential rooms (SV or SD).");
+            throw runtime_error("Missing essential rooms (SV or SD).");
         }
 
         for (const auto& connection : anthillData["connections"])
         {
-            std::string from = connection["from"];
-            std::string to = connection["to"];
+            string from = connection["from"];
+            string to = connection["to"];
 
             Room* fromRoom = nullptr;
             Room* toRoom = nullptr;
@@ -80,48 +80,18 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
             }
         }
 
-        std::vector<Ant> ants;
+        vector<Ant> ants;
         int numberOfAnts = anthillData["ants"];
+        
         for (int i = 1; i <= numberOfAnts; i++)
         {
             ants.emplace_back(i, vestibule);
         }
-
         return Anthill(rooms, ants, vestibule, dortoir, 0);
     }
-    catch (const std::exception &e)
+    catch (const exception &e)
     {
         std::cerr << "Error loading anthill: " << e.what() << std::endl;
         return Anthill({}, {}, nullptr, nullptr, 0);
     }
 }
-
-
-// void GraphManager::loadGraph(std::string graphPath) {
-//     std::unordered_map<std::string, std::vector<std::string>> nodes;
-//     std::cout << "Loading graph..." << std::endl;
-//     std::ifstream file(graphPath);
-//     if (!file) {
-//         std::cerr << "Error: Unable to open file " << graphPath << std::endl;
-//         exit(EXIT_FAILURE);
-//     }
-//     std::string line;
-//     while (std::getline(file, line)) {
-//         std::cout << line << std::endl;
-//         std::stringstream ss(line);
-//         std::string token;
-//         ss >> token;
-
-//         if (token[0] == 'f' && token[1] == '='){
-//             int antsNumber = std::stoi(token.substr(2));
-//             std::cout << "Ants number: " << antsNumber << std::endl;
-//         }
-
-//         if (token[0] == 'S'){
-//             std::string node;
-//             ss >> node;
-//             std::cout << "Start node: " << node << std::endl;
-            
-//         }
-//     }
-// }
