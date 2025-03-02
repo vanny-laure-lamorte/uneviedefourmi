@@ -9,10 +9,10 @@ using namespace std;
 
 class test
 {
-public:   
+public:
 
 private:
-   
+
 };
 
 #endif // TEST_HPP

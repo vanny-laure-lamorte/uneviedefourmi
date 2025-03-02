@@ -14,5 +14,5 @@ int Room::getCapacity(){
 }
 
 vector<Room*> Room::getTunnels(){
-    return tunnels; 
+    return tunnels;
 }

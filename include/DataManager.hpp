@@ -20,7 +20,6 @@ class DataManager {
 public:
 
     Anthill loadAnthillFromJson(int anthillNumber);
-    // Room *findRoomByName(const string &roomName);
     
 private:
     /**

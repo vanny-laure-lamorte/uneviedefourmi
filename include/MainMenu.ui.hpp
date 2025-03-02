@@ -39,8 +39,7 @@ public:
      * It validates the user's input to ensure it's a valid menu option.
      * @return int - The user's menu choice 
      */
-    int displayAnthillMenu();    
-
+    int displayAnthillMenu();
 
     /**
      * @brief Displays the algorithm menu and ask the user to select an option.
@@ -54,7 +53,6 @@ public:
      * @param anthillAlgoritmChoiceUser The user's choice from the anthill menu.
      */
     void handleAlgorithmChoice(int anthillMenuChoiceUser, int anthillAlgoritmChoiceUser);
-
 
 private:
    

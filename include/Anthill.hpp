@@ -26,25 +26,24 @@ public:
 
     int step;
 
-    Anthill(const vector<Room> &roomsList, const vector<Ant> &antsList, 
-        const Room *Sv, const Room *Sd, int step);
+    Anthill(const vector<Room> &roomsList, const vector<Ant> &antsList, const Room *Sv, const Room *Sd, int step);
 
     void moveAnts();
 
-    /** 
+    /**
      * @brief Displays the current positions of the ants in the anthill
      * When the user presses Enter, the ants move to the next room
     */
     void displayAntLocationStepByStep();
-    
-    /** 
+
+    /**
      * @brief Displays all info related to the anthill choosen
      * number of rooms, number of ants, etc.
     */
     void displayAnthillInfo();
 
 private:
-    
+
     Room *findRoomByName(const string &roomName);
     bool canMoveToRoom(Room *room);
     int getAntsInRoom(Room *room);

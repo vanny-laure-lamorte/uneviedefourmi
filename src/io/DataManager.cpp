@@ -10,10 +10,10 @@ vector<filesystem::path> DataManager::scanFilesInJson() {
 
 json DataManager::getAnthillData(int anthillNumber) {
     string filePath = scanFilesInJson()[0].string();
-    ifstream file(filePath);  
+    ifstream file(filePath);
     if (!file.is_open()) {
         cerr << "Error opening the JSON file.\n";
-        return json();  
+        return json();
     }
 
     json data;
@@ -21,7 +21,7 @@ json DataManager::getAnthillData(int anthillNumber) {
 
     for (const auto& anthill : data) {
         if (anthill["anthill"] == anthillNumber) {
-            return anthill;  
+            return anthill;
         }
     }
     return data;
@@ -82,7 +82,6 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
 
         vector<Ant> ants;
         int numberOfAnts = anthillData["ants"];
-        
         for (int i = 1; i <= numberOfAnts; i++)
         {
             ants.emplace_back(i, vestibule);
