@@ -8,26 +8,27 @@ using namespace std;
 
 class Room
 {
-public:   
+public:
 
     string name;
     int capacity;
     vector<Room*> tunnels;
 
-    Room(const string& roomName, int roomCapacity) 
-        : name(roomName), capacity(roomCapacity) {}
-    
+    Room(const string& roomName, int roomCapacity)
+        : name(roomName), capacity(roomCapacity) {
+        }
+
     /**
      * @brief Add tunnels to the room
      * @param Room* room
      */
-   void addTunnels(Room* room); 
+   void addTunnels(Room* room);
 
     /**
      * @brief Get the name of the room
      * @return string name
      */
-    string getName(); 
+    string getName();
 
     /**
      * @brief Get the capacity of the room
@@ -39,10 +40,11 @@ public:
      * @brief Get the tunnels of the room
      * @return vector<Room*> tunnels
      */
-    vector<Room*> getTunnels();
+    vector<string> getTunnelsName();
+
 
 private:
-   
+
 };
 
 #endif // ROOM_HPP

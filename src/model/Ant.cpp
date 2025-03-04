@@ -2,6 +2,7 @@
 
 void Ant::moveAntToNewLocation(Room* targetRoom) {
     currentRoom = targetRoom;
+    cout << "Ant " << id << " moved to room " << currentRoom->getName()<< endl;
 }
 
 int Ant::getId(){
@@ -11,4 +12,3 @@ int Ant::getId(){
 Room* Ant::getStartRoom(){
     return currentRoom;
 }
-

@@ -32,32 +32,41 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
     try
     {
         json anthillData = getAnthillData(anthillNumber);
-        if (anthillData.is_null())
-        {
-            throw runtime_error("Anthill data is empty or invalid.");
-        }
-
         vector<Room> rooms;
         Room* vestibule = nullptr;
-        Room* dortoir = nullptr;
+        Room* dormitory = nullptr;
 
+        cout << "Debug: Creating rooms:" << endl;
         for (const auto& [roomName, capacity] : anthillData["rooms"].items())
         {
             Room newRoom(roomName, capacity);
             rooms.push_back(newRoom);
+            cout << "Debug: Room created - Name: " << roomName << ", Capacity: " << capacity << endl;
 
             if (roomName == "SV")
                 vestibule = &rooms.back();
             else if (roomName == "SD")
-                dortoir = &rooms.back();
+                dormitory = &rooms.back();
         }
-        cout << endl;
 
-        if (!vestibule || !dortoir)
+        if (vestibule) {
+            cout << "Debug: Vestibule room (SV) created: " << vestibule->getName() << endl;
+        } else {
+            cout << "Debug: Error - Vestibule room (SV) not found!" << endl;
+        }
+
+        if (dormitory) {
+            cout << "Debug: Dormitory room (SD) created: " << dormitory->getName() << endl;
+        } else {
+            cout << "Debug: Error - Dormitory room (SD) not found!" << endl;
+        }
+
+        if (!vestibule || !dormitory)
         {
             throw runtime_error("Missing essential rooms (SV or SD).");
         }
 
+        cout << "Debug: Creating connections between rooms:" << endl;
         for (const auto& connection : anthillData["connections"])
         {
             string from = connection["from"];
@@ -77,20 +86,29 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
             if (fromRoom && toRoom)
             {
                 fromRoom->addTunnels(toRoom);
+                cout << "Debug: Connection created - " << fromRoom->getName() << " <-> " << toRoom->getName() << endl;
+            }
+            else
+            {
+                cout << "Debug: Error - Invalid connection between " << from << " and " << to << endl;
             }
         }
 
         vector<Ant> ants;
         int numberOfAnts = anthillData["ants"];
+        cout << "Debug: Creating " << numberOfAnts << " ants:" << endl;
         for (int i = 1; i <= numberOfAnts; i++)
         {
             ants.emplace_back(i, vestibule);
+            cout << "Debug: Ant " << i << " created, starting in room: " << vestibule->getName() << endl;
         }
-        return Anthill(rooms, ants, vestibule, dortoir, 0);
+
+        cout << "Debug: Anthill configuration completed." << endl;
+        return Anthill(rooms, ants, vestibule, dormitory, 0);
     }
     catch (const exception &e)
     {
-        std::cerr << "Error loading anthill: " << e.what() << std::endl;
+        std::cerr << "Error loading the anthill: " << e.what() << std::endl;
         return Anthill({}, {}, nullptr, nullptr, 0);
     }
 }

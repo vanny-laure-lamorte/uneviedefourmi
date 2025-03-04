@@ -13,12 +13,16 @@ using json = nlohmann::json;
 #include <vector>
 #include <string>
 #include <limits>
+#include <queue>
+#include <unordered_set>
+#include <map>
+#include <stack>
+
 using namespace std;
 
 class Anthill
 {
 public:
-    
     vector<Room> anthillRoomsList;
     vector<Ant> anthillAntsList;
     Room *Sv;
@@ -33,20 +37,18 @@ public:
     /**
      * @brief Displays the current positions of the ants in the anthill
      * When the user presses Enter, the ants move to the next room
-    */
+     */
     void displayAntLocationStepByStep();
 
     /**
      * @brief Displays all info related to the anthill choosen
      * number of rooms, number of ants, etc.
-    */
+     */
     void displayAnthillInfo();
 
 private:
 
     Room *findRoomByName(const string &roomName);
-    bool canMoveToRoom(Room *room);
-    int getAntsInRoom(Room *room);
 };
 
 #endif // ANTHILL_HPP

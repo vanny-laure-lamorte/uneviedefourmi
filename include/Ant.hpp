@@ -6,24 +6,25 @@
 
 #include <iostream>
 using namespace std;
+#include <vector>
 
 class Ant
 {
-public:   
+public:
 
     int id;
     Room* currentRoom;
 
     Ant() : id(0), currentRoom(nullptr) {};
-    Ant(int id, Room* startingRoom) : id(id), currentRoom(startingRoom) {}
+    Ant(int id, Room* startingRoom) : id(id), currentRoom(startingRoom) {};
 
     void moveAntToNewLocation(Room* targetRoom);
 
     int getId();
     Room* getStartRoom();
 
-private:
-   
+    private:
+
 };
 
 #endif // ANT_HPP
