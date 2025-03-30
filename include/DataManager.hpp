@@ -19,8 +19,12 @@ class DataManager {
 
 public:
 
+    ~DataManager();
+
     Anthill loadAnthillFromJson(int anthillNumber);
-    
+
+    vector<Room*> rooms;
+
 private:
     /**
      * @brief Retrieve JSON data based on the anthill number

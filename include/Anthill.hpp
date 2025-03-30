@@ -23,14 +23,33 @@ using namespace std;
 class Anthill
 {
 public:
-    vector<Room> anthillRoomsList;
+    vector<Room*> anthillRoomsList;
     vector<Ant> anthillAntsList;
     Room *Sv;
     Room *Sd;
+    int algorithm;
 
-    int step;
+    int step = 0;
+    // debug
 
-    Anthill(const vector<Room> &roomsList, const vector<Ant> &antsList, const Room *Sv, const Room *Sd, int step);
+    Anthill(const vector<Room*> &roomsList, const vector<Ant> &antsList, Room *Sv, Room *Sd, int algorithm);
+
+    vector<Room*> getAnthillRoomsList(){
+        return anthillRoomsList;
+    };
+
+    vector<Ant> getAnthillAntsList() {
+        return anthillAntsList;
+    };
+
+    Room *getSv() {
+        return Sv;
+    };
+
+    Room *getSd() {
+        return Sd;
+    };
+
 
     void moveAnts();
 

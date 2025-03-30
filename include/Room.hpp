@@ -12,6 +12,7 @@ public:
 
     string name;
     int capacity;
+    int currentAntCount;
     vector<Room*> tunnels;
 
     Room(const string& roomName, int roomCapacity)
@@ -36,12 +37,16 @@ public:
      */
     int getCapacity();
 
-    /**
-     * @brief Get the tunnels of the room
-     * @return vector<Room*> tunnels
+    int getCurrentOccupants();
+    int currentOccupant;
+    void addAnt();
+    void removeAnt();
+
+     /**
+     * @brief Add a tunnel -connection to the room
+     * @param room The room to which this room will be connected
      */
     vector<string> getTunnelsName();
-
 
 private:
 

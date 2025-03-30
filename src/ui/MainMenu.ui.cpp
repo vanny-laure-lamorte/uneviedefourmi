@@ -21,7 +21,7 @@ void MainMenu::displayWelcomeMessage()
     cout << "\n"
          << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
          << "       *                                           *\n"
-         << "       *                 UNE VIE DE FOURMI         *\n"
+         << "       *           UNE VIE DE FOURMI               *\n"
          << "       *                                           *\n"
          << "       *       By Lucas M., Thanh L, Vanny L.      *\n"
          << "       *       B2 Logiciel - 2025                  *\n"
@@ -96,8 +96,6 @@ int MainMenu::displayMenuChooseAlgorithm()
 void MainMenu::handleAlgorithmChoice( int anthillMenuChoiceUser, int algorithmChoiceUser)
 {
     // UIRenderer::clearScreen();
-    anthillMenuChoiceUser=0;
-
     if (algorithmChoiceUser == 4){
         cout << "Goodbye! See you soon! :)" << endl;
         exit(0);
@@ -106,8 +104,9 @@ void MainMenu::handleAlgorithmChoice( int anthillMenuChoiceUser, int algorithmCh
         return;
     } else if (algorithmChoiceUser != 3){
 
-        Anthill anthillCreation = dataManager.loadAnthillFromJson(anthillMenuChoiceUser);
-        cout << "\n> Press Enter to move ants to the next step :)";
+        Anthill baseAnthill = dataManager.loadAnthillFromJson(anthillMenuChoiceUser);
+        cout << "\n> Press Enter to move ants to the next step :) \n";
+        Anthill anthillCreation(baseAnthill.getAnthillRoomsList(), baseAnthill.getAnthillAntsList(), baseAnthill.getSv(), baseAnthill.getSd(), algorithmChoiceUser);
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
 

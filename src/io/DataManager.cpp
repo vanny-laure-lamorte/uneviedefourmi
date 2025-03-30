@@ -1,5 +1,13 @@
 #include "DataManager.hpp"
 
+DataManager::~DataManager(){
+    for (auto room : rooms)
+    {
+        delete room;
+    }
+    rooms.clear();
+};
+
 vector<filesystem::path> DataManager::scanFilesInJson() {
     vector<filesystem::path> files;
     for (const auto & entry : filesystem::directory_iterator(filesystem::current_path().parent_path().string()+"\\assets\\json")) {
@@ -26,27 +34,22 @@ json DataManager::getAnthillData(int anthillNumber) {
     }
     return data;
 }
-
-Anthill DataManager::loadAnthillFromJson(int anthillNumber)
-{
-    try
-    {
+Anthill DataManager::loadAnthillFromJson(int anthillNumber) {
+    try {
         json anthillData = getAnthillData(anthillNumber);
-        vector<Room> rooms;
         Room* vestibule = nullptr;
         Room* dormitory = nullptr;
 
         cout << "Debug: Creating rooms:" << endl;
-        for (const auto& [roomName, capacity] : anthillData["rooms"].items())
-        {
-            Room newRoom(roomName, capacity);
+        for (const auto& [roomName, capacity] : anthillData["rooms"].items()) {
+            Room* newRoom = new Room(roomName, capacity);
             rooms.push_back(newRoom);
             cout << "Debug: Room created - Name: " << roomName << ", Capacity: " << capacity << endl;
 
             if (roomName == "SV")
-                vestibule = &rooms.back();
+                vestibule = newRoom;
             else if (roomName == "SD")
-                dormitory = &rooms.back();
+                dormitory = newRoom;
         }
 
         if (vestibule) {
@@ -61,35 +64,29 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
             cout << "Debug: Error - Dormitory room (SD) not found!" << endl;
         }
 
-        if (!vestibule || !dormitory)
-        {
+        if (!vestibule || !dormitory) {
             throw runtime_error("Missing essential rooms (SV or SD).");
         }
 
         cout << "Debug: Creating connections between rooms:" << endl;
-        for (const auto& connection : anthillData["connections"])
-        {
+        for (const auto& connection : anthillData["connections"]) {
             string from = connection["from"];
             string to = connection["to"];
 
             Room* fromRoom = nullptr;
             Room* toRoom = nullptr;
 
-            for (auto& room : rooms)
-            {
-                if (room.getName() == from)
-                    fromRoom = &room;
-                if (room.getName() == to)
-                    toRoom = &room;
+            for (auto& room : rooms) {
+                if (room->getName() == from)
+                    fromRoom = room;
+                if (room->getName() == to)
+                    toRoom = room;
             }
 
-            if (fromRoom && toRoom)
-            {
+            if (fromRoom && toRoom) {
                 fromRoom->addTunnels(toRoom);
                 cout << "Debug: Connection created - " << fromRoom->getName() << " <-> " << toRoom->getName() << endl;
-            }
-            else
-            {
+            } else {
                 cout << "Debug: Error - Invalid connection between " << from << " and " << to << endl;
             }
         }
@@ -97,18 +94,15 @@ Anthill DataManager::loadAnthillFromJson(int anthillNumber)
         vector<Ant> ants;
         int numberOfAnts = anthillData["ants"];
         cout << "Debug: Creating " << numberOfAnts << " ants:" << endl;
-        for (int i = 1; i <= numberOfAnts; i++)
-        {
+        for (int i = 1; i <= numberOfAnts; i++) {
             ants.emplace_back(i, vestibule);
             cout << "Debug: Ant " << i << " created, starting in room: " << vestibule->getName() << endl;
         }
 
         cout << "Debug: Anthill configuration completed." << endl;
         return Anthill(rooms, ants, vestibule, dormitory, 0);
-    }
-    catch (const exception &e)
-    {
-        std::cerr << "Error loading the anthill: " << e.what() << std::endl;
+    } catch (const exception &e) {
+        cerr << "Error loading the anthill: " << e.what() << endl;
         return Anthill({}, {}, nullptr, nullptr, 0);
     }
 }

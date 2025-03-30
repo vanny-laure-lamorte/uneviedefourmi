@@ -18,7 +18,7 @@ public:
     Ant() : id(0), currentRoom(nullptr) {};
     Ant(int id, Room* startingRoom) : id(id), currentRoom(startingRoom) {};
 
-    void moveAntToNewLocation(Room* targetRoom);
+    void moveAntToNewLocation();
 
     int getId();
     Room* getStartRoom();
