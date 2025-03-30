@@ -12,6 +12,7 @@ using json = nlohmann::json;
 #include <iostream>
 #include <vector>
 #include <string>
+#include <set>
 #include <limits>
 #include <queue>
 #include <unordered_set>
@@ -68,6 +69,9 @@ public:
 private:
 
     Room *findRoomByName(const string &roomName);
+    void moveAntsBfs();
+    vector<string> computeShortestPathBfs(const string &start, const string &end);
+
 };
 
 #endif // ANTHILL_HPP

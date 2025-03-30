@@ -14,7 +14,8 @@ public:
     int capacity;
     int currentAntCount;
     vector<Room*> tunnels;
-
+    vector<Room*> getConnections() const { return tunnels;}
+    
     Room(const string& roomName, int roomCapacity)
         : name(roomName), capacity(roomCapacity) {
         }

@@ -1,137 +1,161 @@
 #include "Anthill.hpp"
 
-Anthill::Anthill(const vector<Room*> &roomsList, const vector<Ant> &antsList, Room *Sv, Room *Sd, int algorithm)
-    : anthillRoomsList(roomsList), anthillAntsList(antsList), algorithm(algorithm) {
+Anthill::Anthill(const vector<Room *> &roomsList, const vector<Ant> &antsList, Room *Sv, Room *Sd, int algorithm)
+    : anthillRoomsList(roomsList), anthillAntsList(antsList), algorithm(algorithm)
+{
 
-        this->Sv = findRoomByName(Sv->getName());
-        this->Sd = findRoomByName(Sd->getName());
+    this->Sv = findRoomByName(Sv->getName());
+    this->Sd = findRoomByName(Sd->getName());
 
-        displayAnthillInfo();
-}
+    displayAnthillInfo();
 
-void Anthill::displayAnthillInfo() {
-
-    UIRenderer::displayRectangleWithTitle("ANTHILL INFORMATION");
-
-       // Display the chosen algorithm
-    UIRenderer::displaySubtitle("Algorithm choosen");
-
-       switch (algorithm) {
-           case 1:
-               cout << "> BFS - Breadth-First Search" << endl;
-               break;
-           case 2:
-               cout << "> DFS - Depth-First Search" << endl;
-               break;
-           default:
-               cout << "> Unknown Algorithm" << endl;
-               break;
-       }
-    cout << endl;
-
-    UIRenderer::displaySubtitle("Rooms Information");
-    for (auto& room : anthillRoomsList) {
-        cout << "> Room: " << room->getName()
-             << ", Capacity: " << (room->getCapacity() == -1 ? "Unlimited" : to_string(room->getCapacity()))
-             << endl;
-    }
-    cout << endl;
-
-    UIRenderer::displaySubtitle("Starting and destination point");
-    cout << "> Start Room: " << Sv->getName() << endl;
-    cout << "> End Room: " << Sd->getName() << endl << endl;
-
-    UIRenderer::displaySubtitle("Ants Information");
-    for (auto& ant : anthillAntsList) {
-        cout << "> Ant " << ant.getId() << ", Start Room: " << ant.getStartRoom()->getName() << endl;
-    }
-    cout << endl;
-
-    UIRenderer::displaySubtitle("Connections Information");
-    for (auto& room : anthillRoomsList) {
-        vector<string> tunnelNames = room->getTunnelsName();
-        for (const auto& tunnelName : tunnelNames) {
-            cout << "> Room: " << room->getName() << " is connected to: " << tunnelName << endl;
-        }
+    // Launch the selected algorithm
+    switch (algorithm)
+    {
+    case 1:
+        cout << "Debug: Launching BFS for Ant movement..." << endl;
+        moveAntsBfs();
+        break;
+    case 2:
+        cout << "Debug: DFS Algorithm placeholder (not implemented yet)..." << endl;
+        break;
+    default:
+        cout << "Debug: ALGORITHM NOT CHOOSED YET" << endl;
+        break;
     }
 }
 
-Room* Anthill::findRoomByName(const string& roomName) {
-    for (auto& room : anthillRoomsList) {
-        if (room->getName() == roomName) {
+void Anthill::displayAnthillInfo()
+{
+    // Display information about the anthill (if needed)
+}
+
+Room *Anthill::findRoomByName(const string &roomName)
+{
+    for (auto &room : anthillRoomsList)
+    {
+        if (room->getName() == roomName)
+        {
             return room;
         }
     }
     return nullptr;
 }
 
-void Anthill::moveAnts() {
-    cout << "Debug: Ants are moving..." << endl;
+void Anthill::moveAnts()
+{
+    // Placeholder for another movement algorithm
+}
+
+void Anthill::moveAntsBfs() {
+    cout << "Debug: BFS Movement Step..." << endl;
 
     for (auto& ant : anthillAntsList) {
-        if (ant.currentRoom != Sd) {
-            vector<string> tunnelNames = ant.currentRoom->getTunnelsName();
-            cout << "Ant " << ant.getId() << " is in room " << ant.currentRoom->getName() << endl;
-            cout << "Debug: Available tunnels: ";
-            for (const auto& tunnelName : tunnelNames) {
-                cout << tunnelName << " ";
+        if (ant.currentRoom == Sd) {
+            cout << "Ant " << ant.getId() << " has already reached the destination." << endl;
+            continue;
+        }
+
+        queue<vector<Room*>> pathQueue;
+        set<Room*> visited;
+        unordered_map<Room*, Room*> cameFrom; // Pour reconstruire le chemin
+
+        pathQueue.push({ant.currentRoom});
+        visited.insert(ant.currentRoom);
+
+        Room* destination = nullptr;
+
+        while (!pathQueue.empty()) {
+            vector<Room*> path = pathQueue.front();
+            pathQueue.pop();
+
+            Room* lastRoom = path.back();
+            if (lastRoom == Sd) {
+                destination = lastRoom;
+                break;
             }
-            cout << endl;
 
-            if (!tunnelNames.empty()) {
-                string nextRoomName = tunnelNames[0];
-                Room* nextRoom = nullptr;
-                for (auto& room : anthillRoomsList) {
-                    if (room->getName() == nextRoomName) {
-                        nextRoom = room;
-                        break;
-                    }
-                }
-
-                if (nextRoom) {
-                    if (nextRoom->getCapacity() != -1 && nextRoom->getCurrentOccupants() >= nextRoom->getCapacity()) {
-                        cout << "Room " << nextRoom->getName() << " is full. Ant " << ant.getId() << " cannot move there." << endl;
-                    } else {
-                        ant.currentRoom->removeAnt();
-                        ant.moveAntToNewLocation();
-                        nextRoom->addAnt();
-
-                        cout << "Ant " << ant.getId() << " moved to room " << nextRoom->getName() << endl;
-                    }
-                } else {
-                    cout << "Debug: No valid room found for ant " << ant.getId() << endl;
+            for (Room* neighbor : lastRoom->getConnections()) {
+                if (visited.find(neighbor) == visited.end() &&
+                    (neighbor->getCapacity() == -1 || neighbor->getCurrentOccupants() < neighbor->getCapacity())) {
+                    
+                    visited.insert(neighbor);
+                    cameFrom[neighbor] = lastRoom;
+                    vector<Room*> newPath = path;
+                    newPath.push_back(neighbor);
+                    pathQueue.push(newPath);
                 }
             }
+        }
+
+        // Construire le chemin le plus court à partir de cameFrom
+        vector<Room*> shortestPath;
+        if (destination) {
+            Room* step = destination;
+            while (step != ant.currentRoom) {
+                shortestPath.push_back(step);
+                step = cameFrom[step];
+            }
+            reverse(shortestPath.begin(), shortestPath.end());
+        }
+
+        if (!shortestPath.empty()) {
+            Room* nextRoom = shortestPath[0];
+
+            // Vérification avant de déplacer la fourmi
+            if (nextRoom->getCapacity() != -1 && nextRoom->getCurrentOccupants() >= nextRoom->getCapacity()) {
+                cout << "Room " << nextRoom->getName() << " is full. Ant " << ant.getId() << " cannot move there." << endl;
+                continue;
+            }
+
+            ant.currentRoom->removeAnt();  // Retirer la fourmi de la salle actuelle
+            nextRoom->addAnt();            // Ajouter la fourmi à la nouvelle salle
+            ant.currentRoom = nextRoom;    // Mettre à jour la position de la fourmi
+
+            cout << "Ant " << ant.getId() << " moved to room " << nextRoom->getName() << endl;
         } else {
-            cout << "Ant " << ant.getId() << " has reached the destination." << endl;
+            cout << "Ant " << ant.getId() << " has no valid path to the destination." << endl;
         }
     }
 }
 
 
-void Anthill::displayAntLocationStepByStep() {
+void Anthill::displayAntLocationStepByStep()
+{
     step = 1;
 
-    while (true) {
+    while (true)
+    {
         UIRenderer::displayRectangleWithTitleAndVariable("ANT MOVEMENT STEP", step);
 
         bool allAtEnd = true;
 
-        for (auto& ant : anthillAntsList) {
+        for (auto &ant : anthillAntsList)
+        {
             cout << "Ant " << ant.getId() << " is in room " << ant.currentRoom->getName() << endl;
-            if (ant.currentRoom != Sd) {
+            if (ant.currentRoom != Sd)
+            {
                 allAtEnd = false;
             }
         }
 
-        if (allAtEnd) {
+        if (allAtEnd)
+        {
             cout << "> All ants have reached the destination!" << endl;
             break;
         }
+
         cout << "\n> Press Enter to move ants to the next step ";
         cin.get();
 
-        moveAnts();
+        if (algorithm == 1)
+        {
+            moveAntsBfs();
+        }
+        else
+        {
+            moveAnts();
+        }
 
         step++;
     }

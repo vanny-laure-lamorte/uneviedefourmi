@@ -2,7 +2,7 @@
 
 void MainMenu::mainMenu()
 {
-    // UIRenderer::clearScreen();
+    UIRenderer::clearScreen();
     displayWelcomeMessage();
 
     do
@@ -29,12 +29,12 @@ void MainMenu::displayWelcomeMessage()
          << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
          << "> Press Enter to continue";
     cin.get();
-    // UIRenderer::clearScreen();
+    UIRenderer::clearScreen();
 }
 
 int MainMenu::displayAnthillMenu()
 {
-    // UIRenderer::clearScreen();
+    UIRenderer::clearScreen();
     int anthillMenuChoiceUser;
     do
     {
@@ -71,7 +71,7 @@ int MainMenu::displayAnthillMenu()
 int MainMenu::displayMenuChooseAlgorithm()
 {
     int algorithmMenuChoiceUser;
-    // UIRenderer::clearScreen();
+    UIRenderer::clearScreen();
 
     do {
             cin.clear();
@@ -95,7 +95,7 @@ int MainMenu::displayMenuChooseAlgorithm()
 
 void MainMenu::handleAlgorithmChoice( int anthillMenuChoiceUser, int algorithmChoiceUser)
 {
-    // UIRenderer::clearScreen();
+    UIRenderer::clearScreen();
     if (algorithmChoiceUser == 4){
         cout << "Goodbye! See you soon! :)" << endl;
         exit(0);
@@ -113,12 +113,12 @@ void MainMenu::handleAlgorithmChoice( int anthillMenuChoiceUser, int algorithmCh
        switch (algorithmChoiceUser)
         {
         case 1:
-            // UIRenderer::clearScreen();
+            UIRenderer::clearScreen();
             UIRenderer::displaySubtitle("BFS - Breadth-First Search");
             anthillCreation.displayAntLocationStepByStep();
             break;
         case 2 :
-            // UIRenderer::clearScreen();
+            UIRenderer::clearScreen();
             UIRenderer::displaySubtitle("BFS - Breadth-First Search");
            anthillCreation.displayAntLocationStepByStep();
             break;
