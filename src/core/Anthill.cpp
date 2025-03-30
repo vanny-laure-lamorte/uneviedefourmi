@@ -35,10 +35,16 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
     {
         if (algorithmChoice == 1)
         {
-
             cin.get();
             cout << "****** Step " << step << " ******" << endl;
             allAntsArrived = anthillResolution();
+            step++;
+        }
+        else if (algorithmChoice == 2)
+        {
+            cin.get();
+            cout << "****** Step " << step << " (DFS) ******" << endl;
+            allAntsArrived = anthillResolutionDfs();
             step++;
         }
         else
@@ -97,6 +103,41 @@ vector<string> Anthill::computeShortestPathBfs(const string &start, const string
     return {};
 }
 
+vector<string> Anthill::computeShortestPathDfs(const string &start, const string &end)
+{
+    stack<vector<string>> pathStack;
+    set<string> visited;
+
+    pathStack.push({start});
+    visited.insert(start);
+
+    while (!pathStack.empty())
+    {
+        vector<string> path = pathStack.top();
+        pathStack.pop();
+
+        string lastRoom = path.back();
+        if (lastRoom == end)
+            return path;
+
+        Room *currentRoom = getRoomByName(lastRoom);
+        if (!currentRoom)
+            continue;
+
+        for (Room *neighbor : currentRoom->getConnections())
+        {
+            if (visited.find(neighbor->getName()) == visited.end() && neighbor->getCapacity() > 0)
+            {
+                vector<string> newPath = path;
+                newPath.push_back(neighbor->getName());
+                pathStack.push(newPath);
+                visited.insert(neighbor->getName());
+            }
+        }
+    }
+    return {};
+}
+
 bool Anthill::anthillResolution()
 {
     bool allAntsArrived = true;
@@ -105,6 +146,37 @@ bool Anthill::anthillResolution()
     {
         allAntsArrived = false;
         vector<string> path = computeShortestPathBfs(ant->getPosition(), "SD");
+
+        if (path.size() > 1)
+        {
+            Room *currentRoom = getRoomByName(path[0]);
+            Room *nextRoom = getRoomByName(path[1]);
+
+            if (currentRoom && nextRoom && nextRoom->getCapacity() > 0)
+            {
+                currentRoom->removeAnt(ant.get());
+                nextRoom->addAnt(ant.get());
+                ant->setPosition(nextRoom->getName());
+                cout << "Ant " << ant->getId() << " moved from " << currentRoom->getName()
+                     << " to " << nextRoom->getName() << endl;
+                if (ant->getPosition() == "SD")
+                {
+                    allAntsArrived = true;
+                }
+            }
+        }
+    }
+    return allAntsArrived;
+}
+
+bool Anthill::anthillResolutionDfs()
+{
+    bool allAntsArrived = true;
+
+    for (auto &ant : antsColony)
+    {
+        allAntsArrived = false;
+        vector<string> path = computeShortestPathDfs(ant->getPosition(), "SD");
 
         if (path.size() > 1)
         {

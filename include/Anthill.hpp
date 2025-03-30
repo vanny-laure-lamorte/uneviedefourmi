@@ -6,6 +6,7 @@
 using namespace std;
 #include <memory>
 #include <set>
+#include <stack>
 #include <queue>
 #include <vector>
 
@@ -34,6 +35,19 @@ private:
      *  @return vector<string> The shortest path
      */
     vector<string> computeShortestPathBfs(const string &start, const string &end);
+
+    /**
+     * Function used to compute the shortest path between two rooms using DFS
+     *  @brief Compute the shortest path between two rooms using DFS
+     *  @param start The starting room
+     *  @param end The ending room
+     *  @return vector<string> The shortest path
+     */
+    vector<string> computeShortestPathDfs(const string &start, const string &end);
+
+    bool anthillResolutionDfs();
+
+
 
 public:
     /**
