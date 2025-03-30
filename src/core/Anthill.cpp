@@ -1,7 +1,7 @@
 #include "Anthill.hpp"
 
-Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pair<string, string>> roomConnection)
-    : antsNumber(antsNumber)
+Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pair<string, string>> roomConnection, int algorithmChoice)
+    : antsNumber(antsNumber), algorithmChoice(algorithmChoice)
 {
     for (const auto &room : roomsData)
     {
@@ -27,16 +27,26 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         antsColony.push_back(make_unique<Ant>(i, "SV"));
         getRoomByName("SV")->addAnt(antsColony.back().get());
     }
-
     cout << "Sile Anthill created \n\n";
+
     bool allAntsArrived = false;
     int step = 1;
     while (!allAntsArrived)
     {
-        cout << "****** Step " << step++ << " ******" << endl;
-        allAntsArrived = anthillResolution();
+        if (algorithmChoice == 1)
+        {
+
+            cin.get();
+            cout << "****** Step " << step << " ******" << endl;
+            allAntsArrived = anthillResolution();
+            step++;
+        }
+        else
+        {
+            cout << "Invalid algorithm choice.\n";
+            return;
+        }
     }
-    cout << "\nAll ants have arrived in " << step << " steps !\n\n";
 }
 
 Room *Anthill::getRoomByName(const string &name)

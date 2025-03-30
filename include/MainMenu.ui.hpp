@@ -10,6 +10,8 @@ class MainMenu
 {
 public:  
 
+    int displayMenuChooseAlgorithm();
+
     int anthillMenuChoiceUser;
     InputValidator inputValidator;
     

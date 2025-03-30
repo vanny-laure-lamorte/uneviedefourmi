@@ -16,6 +16,7 @@ private:
     vector<unique_ptr<Room>> rooms;
     vector<unique_ptr<Ant>> antsColony;
     vector<vector<string>> shortestPaths;
+    int algorithmChoice;
 
     /**
      * Function used for the creation of connections between rooms
@@ -41,7 +42,7 @@ public:
      * @param roomsData The data of the rooms
      * @param roomConnection The connections between rooms
      */
-    Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pair<string, string>> roomConnection);
+    Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pair<string, string>> roomConnection, int algorithmChoice);
     ~Anthill();
 
     /**

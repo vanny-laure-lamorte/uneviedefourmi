@@ -39,8 +39,7 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
             roomConnection.emplace_back(conn[0], conn[1]);
         }
     }
-
-    Anthill anthill(antsNumber, roomsData, roomConnection);
+    Anthill anthill(antsNumber, roomsData, roomConnection, displayMenuChooseAlgorithm());
 }
 
 
@@ -120,4 +119,29 @@ void MainMenu::displayRectangleWithTitle(string text)
     cout << "* " << text << " *" << endl;
     cout << string(rectangleWidth, '*') << endl;
     cout << endl;
+}
+
+int MainMenu::displayMenuChooseAlgorithm()
+{
+    int algorithmMenuChoiceUser;
+    MainMenu::clearScreen();
+
+    do {
+            cin.clear();
+            cout << "\n"
+            << "       * * * * * * * * * * * * * * * * * * * * * * *\n"
+            << "       *                                            *\n"
+            << "       *           CHOOSE A AN ALGORITHM            *\n"
+            << "       *                                            *\n"
+            << "       *   (1) BFS - Breadth-First Search           *\n"
+            << "       *   (2) DFS - Depth-FirstSearch              *\n"
+            << "       *                                            *\n"
+            << "       *   (3) Previous                             *\n"
+            << "       *   (4) Quit                                 *\n"
+            << "       *                                            *\n"
+            << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
+            << "> Select an option : ";
+            cin >> algorithmMenuChoiceUser;
+        } while (!inputValidator.isValidDigit(algorithmMenuChoiceUser, 4));
+    return algorithmMenuChoiceUser;
 }
