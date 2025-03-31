@@ -7,7 +7,7 @@ Ant::Ant(int id, string position) : id(id), position(position)
 
 Ant::~Ant()
 {
-    cout << "Ant destroyed: " << id << endl;
+    cout << "> Ant destroyed: " << id << endl;
 }
 
 void Ant::setPosition(string newPosition)

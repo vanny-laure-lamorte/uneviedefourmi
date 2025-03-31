@@ -18,7 +18,7 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
 
     displayRectangleWithTitle(menuListTitle[userFilterChoice]);
 
-    DataManager dataManager("../src/assets/anthills.json");
+    DataManager dataManager("../assets/anthills.json");
     json anthillData = dataManager.getAnthillData(userFilterChoice);
 
     if (anthillData.empty()) {
@@ -39,9 +39,13 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
             roomConnection.emplace_back(conn[0], conn[1]);
         }
     }
-    Anthill anthill(antsNumber, roomsData, roomConnection, displayMenuChooseAlgorithm());
+    Anthill anthill(
+        antsNumber,
+        roomsData,
+        roomConnection,
+        displayMenuChooseAlgorithm()
+    );
 }
-
 
 void MainMenu::mainMenu()
 {
@@ -51,6 +55,7 @@ void MainMenu::mainMenu()
     {
         anthillMenuChoiceUser = displayAnthillMenu();
         handleAnthillChoice(anthillMenuChoiceUser);
+        cout << "> Press Enter to continue.";
         cin.get();
 
     } while (anthillMenuChoiceUser != 6);
@@ -73,11 +78,11 @@ void MainMenu::displayWelcomeMessage()
          << "> Press Enter to continue.";
 
     cin.get();
-    clearScreen();
 }
 
 int MainMenu::displayAnthillMenu()
 {
+    clearScreen();
     int anthillMenuChoiceUser;
     do
     {
@@ -124,7 +129,7 @@ void MainMenu::displayRectangleWithTitle(string text)
 int MainMenu::displayMenuChooseAlgorithm()
 {
     int algorithmMenuChoiceUser;
-    MainMenu::clearScreen();
+    clearScreen();
 
     do {
             cin.clear();
@@ -145,5 +150,6 @@ int MainMenu::displayMenuChooseAlgorithm()
             cout << endl;
 
         } while (!inputValidator.isValidDigit(algorithmMenuChoiceUser, 4));
+        clearScreen();
     return algorithmMenuChoiceUser;
 }

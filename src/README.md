@@ -6,6 +6,7 @@
 │   ├── /config        # Configuration handling
 │   ├── /tests         # Unit tests
 │── /include           # Header files
+│── /assets            # 
 │── /build             # Build directory
 │── CMakeLists.txt     # CMake configuration
 ├── main.cpp           # Entry point

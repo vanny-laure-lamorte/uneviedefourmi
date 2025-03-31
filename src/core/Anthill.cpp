@@ -42,7 +42,7 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         if (algorithmChoice == 1)
         {
             cin.get();
-            cout << "****** Step " << step << " (BFS) ******" << endl;
+            cout << endl << "****** Step " << step << " (BFS) ******" << endl;
             allAntsArrived = anthillResolution();
             step++;
 
@@ -52,7 +52,7 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         {
 
             cin.get();
-            cout << "****** Step " << step << " (DFS) ******" << endl;
+            cout << endl << "****** Step " << step << " (DFS) ******" << endl;
             allAntsArrived = anthillResolutionDfs();
             step++;
             cout<< endl << "> Press enter to continue.";
@@ -63,6 +63,8 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
             return;
         }
     }
+    cout << endl << endl << ">>>> All ants have arrived at the food source! <<<<" << endl;
+    cin.get();
 }
 
 Room *Anthill::getRoomByName(const string &name)
@@ -75,7 +77,7 @@ Room *Anthill::getRoomByName(const string &name)
 
 Anthill::~Anthill()
 {
-    cout << "\n Sile Anthill destroying" << endl;
+    cout << endl <<"> Anthill destroyed" << endl;
 }
 
 vector<string> Anthill::computeShortestPathBfs(const string &start, const string &end)
@@ -161,7 +163,7 @@ bool Anthill::anthillResolution()
         {
             Room *currentRoom = getRoomByName(path[0]);
             Room *nextRoom = getRoomByName(path[1]);
-            
+
             if (currentRoom && nextRoom && nextRoom->getCapacity() > 0)
             {
                 currentRoom->removeAnt(ant.get());

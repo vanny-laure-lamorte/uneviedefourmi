@@ -1,9 +1,6 @@
 #ifndef UIRENDERER_HPP
 #define UIRENDERER_HPP
 
-#include "InputValidator.hpp"
-#include "Room.hpp"
-
 #include <iostream>
 using namespace std;
 
