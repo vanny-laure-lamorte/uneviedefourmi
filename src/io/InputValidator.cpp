@@ -1,4 +1,5 @@
 #include "InputValidator.hpp"
+
 #include <iostream>
 using namespace std;
 
@@ -10,6 +11,7 @@ bool InputValidator::isValidDigit(int userInput, int maxOption){
         else
         {
             cout << "\n> Please select a valid option :( \n";
+            cout << userInput << " " << maxOption << endl;
             return false;
         }
     } return false;

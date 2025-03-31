@@ -1,0 +1,138 @@
+[
+    {
+      "anthill": 0,
+      "ants": 2,
+      "rooms": {
+        "SV":-1,
+        "SD":-1,
+        "S1": 1,
+        "S2": 1
+      },
+      "connections": [
+        {"from": "SV", "to": "S1"},
+        {"from": "SV", "to": "S2"},
+        {"from": "S1", "to": "SD"},
+        {"from": "S2", "to": "SD"}
+      ]
+    },
+    {
+      "anthill": 1,
+      "ants": 5,
+      "rooms": {
+        "SV":-1,
+        "SD":-1,
+        "S1": 1,
+        "S2": 1
+      },
+      "connections": [
+        {"from": "SV", "to": "S1"},
+        {"from": "S1", "to": "S2"},
+        {"from": "S2", "to": "SD"}
+      ]
+    },
+    {
+      "anthill": 2,
+      "ants": 5,
+      "rooms": {
+        "SV":-1,
+        "SD":-1,
+        "S1": 1,
+        "S2": 1
+      },
+      "connections": [
+        {"from": "SV", "to": "S1"},
+        {"from": "S1", "to": "S2"},
+        {"from": "S2", "to": "SD"},
+        {"from": "SD", "to": "SV"}
+      ]
+    },
+    {
+      "anthill": 3,
+      "ants": 5,
+      "rooms": {
+        "SV":-1,
+        "SD":-1,
+        "S1": 1,
+        "S2": 1,
+        "S3": 1,
+        "S4": 1
+      },
+      "connections": [
+        {"from": "SV", "to": "S1"},
+        {"from": "S1", "to": "S2"},
+        {"from": "S4", "to": "SD"},
+        {"from": "S1", "to": "S4"},
+        {"from": "S2", "to": "S3"}
+      ]
+    },
+    {
+      "anthill": 4,
+      "ants": 10,
+      "rooms": {
+        "SV":-1,
+        "SD":-1,
+        "S1": 2,
+        "S2": 1,
+        "S3": 1,
+        "S4": 2,
+        "S5": 1,
+        "S6": 1
+      },
+      "connections": [
+        {"from": "S3", "to": "S4"},
+        {"from": "SV", "to": "S1"},
+        {"from": "S1", "to": "S2"},
+        {"from": "S2", "to": "S4"},
+        {"from": "S4", "to": "S5"},
+        {"from": "S5", "to": "SD"},
+        {"from": "S4", "to": "S6"},
+        {"from": "S6", "to": "SD"},
+        {"from": "S1", "to": "S3"}
+      ]
+    },
+    {
+      "anthill": 5,
+      "ants": 50,
+      "rooms": {
+        "SV":-1,
+        "SD":-1,
+        "S1": 8,
+        "S2": 4,
+        "S3": 2,
+        "S4": 4,
+        "S5": 2,
+        "S6": 4,
+        "S7": 2,
+        "S8": 5,
+        "S9": 1,
+        "S10": 1,
+        "S11": 1,
+        "S12": 1,
+        "S13": 4,
+        "S14": 2
+      },
+      "connections": [
+        {"from": "S1", "to": "S2"},
+        {"from": "S2", "to": "S3"},
+        {"from": "S3", "to": "S4"},
+        {"from": "S4", "to": "SD"},
+        {"from": "SV", "to": "S1"},
+        {"from": "S2", "to": "S5"},
+        {"from": "S5", "to": "S4"},
+        {"from": "S13", "to": "SD"},
+        {"from": "S8", "to": "S12"},
+        {"from": "S12", "to": "S13"},
+        {"from": "S6", "to": "S7"},
+        {"from": "S7", "to": "S9"},
+        {"from": "S9", "to": "S14"},
+        {"from": "S14", "to": "SD"},
+        {"from": "S7", "to": "S10"},
+        {"from": "S10", "to": "S14"},
+        {"from": "S1", "to": "S6"},
+        {"from": "S6", "to": "S8"},
+        {"from": "S8", "to": "S11"},
+        {"from": "S11", "to": "S13"}
+      ]
+    }
+  ]
+  

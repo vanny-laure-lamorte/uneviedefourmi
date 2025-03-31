@@ -1,10 +1,16 @@
 #include "MainMenu.ui.hpp"
 #include "GraphManager.hpp"
 
+#include "Anthill.hpp"
+#include"DataManager.hpp"
+
 #include <iostream>
 using namespace std;
 
+DataManager dataManager;
 MainMenu mainMenu;
+
+
 int main()
 {
     GraphManager graphManager;
