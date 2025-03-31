@@ -5,7 +5,6 @@
 using namespace std;
 #include <vector>
 #include <algorithm>
-
 class Room
 {
 private:

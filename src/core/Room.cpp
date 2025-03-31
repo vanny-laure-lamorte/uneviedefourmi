@@ -2,11 +2,11 @@
 
 Room::Room(string name, int capacity) : name(name), capacity(capacity)
 {
-    cout << "Room constructor: " << name << endl;
+    cout << "> Room constructor: " << name << endl;
 }
 
 Room::~Room() {
-    cout << "Room destroyed: " << name << endl;
+    cout << "> Room destroyed: " << name << endl;
 }
 
 void Room::addConnection(Room *room)
@@ -14,7 +14,7 @@ void Room::addConnection(Room *room)
     if (find(connections.begin(), connections.end(), room) == connections.end())
     {
         connections.push_back(room);
-        cout << "Connected " << name << " with " << room->getName() << endl;
+        cout << "> Connected " << name << " with " << room->getName() << endl;
     }
 }
 

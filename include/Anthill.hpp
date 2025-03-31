@@ -2,6 +2,7 @@
 #define ANTHILL_HPP
 #include "Room.hpp"
 #include "Ant.hpp"
+#include "UIRenderer.hpp"
 
 using namespace std;
 #include <memory>
@@ -47,8 +48,6 @@ private:
 
     bool anthillResolutionDfs();
 
-
-
 public:
     /**
      * Constructor
@@ -63,8 +62,10 @@ public:
      * Function used to resolve the anthill
      * @brief Resolve the anthill
      * @return bool True if all ants have arrived, false otherwise
-     */    
+     */
     bool anthillResolution();
+
+    UIRenderer uiRenderer;
 };
 
 #endif

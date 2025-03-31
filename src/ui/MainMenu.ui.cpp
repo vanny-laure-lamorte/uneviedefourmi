@@ -27,7 +27,7 @@ void MainMenu::handleAnthillChoice(int userFilterChoice)
     }
 
     int antsNumber = anthillData["ants"];
-    
+
     vector<pair<string, int>> roomsData;
     for (auto& [key, value] : anthillData["rooms"].items()) {
         roomsData.emplace_back(key, value);
@@ -140,8 +140,10 @@ int MainMenu::displayMenuChooseAlgorithm()
             << "       *   (4) Quit                                 *\n"
             << "       *                                            *\n"
             << "       * * * * * * * * * * * * * * * * * * * * * * *\n\n"
-            << "> Select an option : ";
+            << "> Select an option : " ;
             cin >> algorithmMenuChoiceUser;
+            cout << endl;
+
         } while (!inputValidator.isValidDigit(algorithmMenuChoiceUser, 4));
     return algorithmMenuChoiceUser;
 }

@@ -2,7 +2,7 @@
 
 Ant::Ant(int id, string position) : id(id), position(position)
 {
-    cout << "Hello, I'm F" << id << "! I'm in " << position << "!" << endl;
+    cout << "> I'm Ant " << id << "! I'm in " << position << "!" << endl;
 }
 
 Ant::~Ant()

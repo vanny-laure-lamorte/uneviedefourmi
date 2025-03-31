@@ -12,8 +12,8 @@ public:
     * @param int maxOption
     * @return bool userInput
     */
-   bool isValidDigit(int userInput, int maxOption); 
-    
+   bool isValidDigit(int userInput, int maxOption);
+
 private:
 
 };

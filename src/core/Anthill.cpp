@@ -3,6 +3,8 @@
 Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pair<string, string>> roomConnection, int algorithmChoice)
     : antsNumber(antsNumber), algorithmChoice(algorithmChoice)
 {
+    uiRenderer.displayRectangleWithTitle("ANTHILL INFORMATION");
+
     for (const auto &room : roomsData)
     {
         if (room.first == "SV" || room.first == "SD")
@@ -10,6 +12,7 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         else
             rooms.push_back(make_unique<Room>(room.first, room.second));
     }
+    cout << endl;
 
     for (const auto &connection : roomConnection)
     {
@@ -21,13 +24,16 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
             roomB->addConnection(roomA);
         }
     }
+    cout << endl;
 
     for (int i = 0; i < antsNumber; i++)
     {
         antsColony.push_back(make_unique<Ant>(i, "SV"));
         getRoomByName("SV")->addAnt(antsColony.back().get());
     }
-    cout << "Sile Anthill created \n\n";
+    cout << endl << "> Your Anthill has been created ! :) \n";
+    cin.get();
+    cout<< endl << "> Press enter to continue." ;
 
     bool allAntsArrived = false;
     int step = 1;
@@ -36,16 +42,20 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         if (algorithmChoice == 1)
         {
             cin.get();
-            cout << "****** Step " << step << " ******" << endl;
+            cout << "****** Step " << step << " (BFS) ******" << endl;
             allAntsArrived = anthillResolution();
             step++;
+
+            cout<< endl << "> Press enter to continue." ;
         }
         else if (algorithmChoice == 2)
         {
+
             cin.get();
             cout << "****** Step " << step << " (DFS) ******" << endl;
             allAntsArrived = anthillResolutionDfs();
             step++;
+            cout<< endl << "> Press enter to continue.";
         }
         else
         {
@@ -65,7 +75,7 @@ Room *Anthill::getRoomByName(const string &name)
 
 Anthill::~Anthill()
 {
-    cout << "Sile Anthill destroying" << endl;
+    cout << "\n Sile Anthill destroying" << endl;
 }
 
 vector<string> Anthill::computeShortestPathBfs(const string &start, const string &end)
