@@ -101,7 +101,7 @@ vector<string> Anthill::computeShortestPathBfs(const string &start, const string
 
         for (Room *neighbor : currentRoom->getConnections())
         {
-            if (visited.find(neighbor->getName()) == visited.end() && neighbor->getCapacity() > 0)
+            if (visited.find(neighbor->getName()) == visited.end())
             {
                 vector<string> newPath = path;
                 newPath.push_back(neighbor->getName());
@@ -112,6 +112,7 @@ vector<string> Anthill::computeShortestPathBfs(const string &start, const string
     }
     return {};
 }
+
 
 vector<string> Anthill::computeShortestPathDfs(const string &start, const string &end)
 {
@@ -156,12 +157,11 @@ bool Anthill::anthillResolution()
     {
         allAntsArrived = false;
         vector<string> path = computeShortestPathBfs(ant->getPosition(), "SD");
-
         if (path.size() > 1)
         {
             Room *currentRoom = getRoomByName(path[0]);
             Room *nextRoom = getRoomByName(path[1]);
-
+            
             if (currentRoom && nextRoom && nextRoom->getCapacity() > 0)
             {
                 currentRoom->removeAnt(ant.get());
