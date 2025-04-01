@@ -4,29 +4,28 @@
 #include "InputValidator.hpp"
 #include "Room.hpp"
 #include "Ant.hpp"
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <limits>
+#include <memory>
 using namespace std;
 
 class Anthill
 {
 public:
     
-    vector<Room> anthillRoomsList;
-    vector<Ant> anthillAntsList;
-    Room *Sv;
-    Room *Sd;
-    int step = 0;
 
-    Anthill(const vector<Room> &roomsList, const vector<Ant> &antsList, 
-        const Room *Sv, const Room *Sd, int step);
+        Anthill(const std::vector<std::shared_ptr<Room>>& roomsList, 
+            const std::vector<Ant>& antsList, 
+            std::shared_ptr<Room> Sv, 
+            std::shared_ptr<Room> Sd, 
+            int step);
 
-    void moveAnts();
+    void moveAntsWithManager();
+
+    std::shared_ptr<Room> findRoomByName(const std::string& roomName);
 
     /** 
      * @brief Displays the current positions of the ants in the anthill
@@ -38,13 +37,19 @@ public:
      * @brief Displays all info related to the anthill choosen
      * number of rooms, number of ants, etc.
     */
-    void displayAnthillInfo();
+    void displayAnthillInfo() const;
+
+    bool isValid() const;
 
 private:
-    
-    Room *findRoomByName(const string &roomName);
-    bool canMoveToRoom(Room *room);
-    int getAntsInRoom(Room *room);
+vector<shared_ptr<Room>> anthillRoomsList;
+vector<Ant> anthillAntsList;
+shared_ptr<Room> Sv;
+shared_ptr<Room> Sd;
+int step;
+
+bool canMoveToRoom(const std::shared_ptr<Room>& room) const;
+int getAntsInRoom(const std::shared_ptr<Room>& room) const;
 };
 
 #endif // ANTHILL_HPP

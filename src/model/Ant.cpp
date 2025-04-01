@@ -1,14 +1,33 @@
 #include "Ant.hpp"
 
-void Ant::moveAntToNewLocation(Room* targetRoom) {
+Ant::Ant(int id, std::shared_ptr<Room> startRoom)
+    : id(id), currentRoom(startRoom) {}
+
+void Ant::moveTo(std::shared_ptr<Room> targetRoom) {
     currentRoom = targetRoom;
 }
 
-int Ant::getId(){
+int Ant::getId() const {
     return id;
 }
 
-Room* Ant::getStartRoom(){
+std::shared_ptr<Room> Ant::getCurrentRoom() const {
     return currentRoom;
 }
 
+void Ant::setPath(const std::vector<std::shared_ptr<Room>>& path) {
+    pathToDestination = path;
+    currentPathIndex = 0;
+}
+
+std::vector<std::shared_ptr<Room>>& Ant::getPath() {
+    return pathToDestination;
+}
+
+size_t Ant::getCurrentIndex() const {
+    return currentPathIndex;
+}
+
+void Ant::incrementIndex() {
+    currentPathIndex++;
+}

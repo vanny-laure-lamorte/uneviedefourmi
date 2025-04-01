@@ -1,18 +1,20 @@
 #include "Room.hpp"
 
-void Room::addTunnels(Room* room)
-{
-    tunnels.push_back(room);
-}
+Room::Room(const std::string& name, int capacity)
+    : name(name), capacity(capacity) {}
 
-string Room::getName(){
+const std::string& Room::getName() const {
     return name;
 }
 
-int Room::getCapacity(){
+int Room::getCapacity() const {
     return capacity;
 }
 
-vector<Room*> Room::getTunnels(){
-    return tunnels; 
+void Room::addTunnel(std::shared_ptr<Room> room) {
+    tunnels.push_back(room);
+}
+
+const std::vector<std::shared_ptr<Room>>& Room::getTunnels() const {
+    return tunnels;
 }

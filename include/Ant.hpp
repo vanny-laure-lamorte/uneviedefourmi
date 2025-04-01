@@ -1,29 +1,29 @@
 #ifndef ANT_HPP
 #define ANT_HPP
 
-#include "InputValidator.hpp"
 #include "Room.hpp"
+#include <memory>
+#include <vector>
 
-#include <iostream>
-using namespace std;
+class Ant {
 
-class Ant
-{
-public:   
+public:
+    Ant(int id, std::shared_ptr<Room> startRoom);
 
-    int id;
-    Room* currentRoom;
+    void moveTo(std::shared_ptr<Room> targetRoom);
+    int getId() const;
+    std::shared_ptr<Room> getCurrentRoom() const;
 
-    Ant() : id(0), currentRoom(nullptr) {};
-    Ant(int id, Room* startingRoom) : id(id), currentRoom(startingRoom) {}
-
-    void moveAntToNewLocation(Room* targetRoom);
-
-    int getId();
-    Room* getStartRoom();
+    void setPath(const std::vector<std::shared_ptr<Room>>& path);
+    std::vector<std::shared_ptr<Room>>& getPath();
+    size_t getCurrentIndex() const;
+    void incrementIndex();
 
 private:
-   
+    int id;
+    std::vector<std::shared_ptr<Room>> pathToDestination;
+    std::shared_ptr<Room> currentRoom;
+    size_t currentPathIndex = 0;
 };
 
-#endif // ANT_HPP
+#endif

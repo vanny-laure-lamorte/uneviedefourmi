@@ -1,48 +1,42 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
+#include <string>
+#include <vector>
+#include <memory>
 #include "InputValidator.hpp"
 
-#include <iostream>
-#include <vector>
-using namespace std;
+class Room {
+    public:
+        Room(const std::string& name, int capacity);
 
-class Room
-{
-public:   
-
-    string name;
-    int capacity;
-    vector<Room*> tunnels;
-
-    Room(const string& roomName, int roomCapacity) 
-        : name(roomName), capacity(roomCapacity) {}
-    
     /**
      * @brief Add tunnels to the room
      * @param Room* room
      */
-   void addTunnels(Room* room); 
+    void addTunnel(std::shared_ptr<Room> room);
 
     /**
      * @brief Get the name of the room
      * @return string name
      */
-    string getName(); 
+    const std::string& getName() const;
 
     /**
      * @brief Get the capacity of the room
      * @return int capacity
      */
-    int getCapacity();
+    int getCapacity() const;
 
     /**
      * @brief Get the tunnels of the room
      * @return vector<Room*> tunnels
      */
-    vector<Room*> getTunnels();
+    const std::vector<std::shared_ptr<Room>>& getTunnels() const;
 
-private:
-   
+    private:
+    std::string name;
+    int capacity;
+    std::vector<std::shared_ptr<Room>> tunnels;
 };
 
 #endif // ROOM_HPP
