@@ -31,9 +31,11 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         antsColony.push_back(make_unique<Ant>(i, "SV"));
         getRoomByName("SV")->addAnt(antsColony.back().get());
     }
-    cout << endl << "> Your Anthill has been created ! :) \n";
+    cout << endl
+         << "> Your Anthill has been created ! :) \n";
     cin.get();
-    cout<< endl << "> Press enter to continue." ;
+    cout << endl
+         << "> Press enter to continue.";
 
     bool allAntsArrived = false;
     int step = 1;
@@ -42,20 +44,24 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
         if (algorithmChoice == 1)
         {
             cin.get();
-            cout << endl << "****** Step " << step << " (BFS) ******" << endl;
+            cout << endl
+                 << "****** Step " << step << " (BFS) ******" << endl;
             allAntsArrived = anthillResolution();
             step++;
 
-            cout<< endl << "> Press enter to continue." ;
+            cout << endl
+                 << "> Press enter to continue.";
         }
         else if (algorithmChoice == 2)
         {
 
             cin.get();
-            cout << endl << "****** Step " << step << " (DFS) ******" << endl;
+            cout << endl
+                 << "****** Step " << step << " (DFS) ******" << endl;
             allAntsArrived = anthillResolutionDfs();
             step++;
-            cout<< endl << "> Press enter to continue.";
+            cout << endl
+                 << "> Press enter to continue.";
         }
         else
         {
@@ -63,7 +69,9 @@ Anthill::Anthill(int antsNumber, vector<pair<string, int>> roomsData, vector<pai
             return;
         }
     }
-    cout << endl << endl << ">>>> All ants have arrived at the food source! <<<<" << endl;
+    cout << endl
+         << endl
+         << ">>>> All ants have arrived at the food source! <<<<" << endl;
     cin.get();
 }
 
@@ -77,7 +85,8 @@ Room *Anthill::getRoomByName(const string &name)
 
 Anthill::~Anthill()
 {
-    cout << endl <<"> Anthill destroyed" << endl;
+    cout << endl
+         << "> Anthill destroyed" << endl;
 }
 
 vector<string> Anthill::computeShortestPathBfs(const string &start, const string &end)
@@ -101,14 +110,24 @@ vector<string> Anthill::computeShortestPathBfs(const string &start, const string
         if (!currentRoom)
             continue;
 
-        for (Room *neighbor : currentRoom->getConnections())
+        vector<Room *> neighbors = currentRoom->getConnections();
+
+        sort(neighbors.begin(), neighbors.end(), [](Room *a, Room *b) {
+            return a->getCapacity() > b->getCapacity();
+        });
+
+        for (Room *neighbor : neighbors)
         {
-            if (visited.find(neighbor->getName()) == visited.end())
+            if (visited.find(neighbor->getName()) == visited.end() || neighbor->getCapacity() > 0)
             {
                 vector<string> newPath = path;
                 newPath.push_back(neighbor->getName());
                 pathQueue.push(newPath);
-                visited.insert(neighbor->getName());
+
+                if (neighbor->getCapacity() > 0)
+                {
+                    visited.insert(neighbor->getName());
+                }
             }
         }
     }
